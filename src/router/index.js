@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import TeacherPCLogin from '@/components/teacherPC/Login'
+import TeacherPCLogin from '@/components/teacherPC/login'
 
 Vue.use(Router)
 
