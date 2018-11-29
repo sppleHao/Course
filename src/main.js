@@ -7,9 +7,7 @@ import Mint from 'mint-ui';
 import 'mint-ui/lib/style.css';
 
 Vue.use(Mint);
-
 Vue.config.productionTip = false
-Vue.use(iView)
 
 /* eslint-disable no-new */
 new Vue({
