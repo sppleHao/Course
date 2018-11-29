@@ -27,10 +27,10 @@
 <style scoped>
 .header{
   top: 0;
-  height: 20%;
+  height: 10%;
 }
 .container{
-  margin-top: 20%;
-  height: 80%;
+  margin-top: 10%;
+  height: 90%;
 }
 </style>

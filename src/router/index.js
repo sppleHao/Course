@@ -1,9 +1,10 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import TeacherPCLogin from '@/components/teacherPC/Login'
-import SeminarCourseSelect from '@/pages/studentMobile/Seminar/Courseselect'
-import SeminarSelect from '@/pages/studentMobile/Seminar/Seminarselect'
-import SeminarIndex from '@/pages/studentMobile/Seminar/SeminarIndex'
+import TeacherPCLogin from '@/components/teacherPC/login'
+import SeminarCourseSelect from '@/pages/studentMobile/seminar/Courseselect'
+import SeminarSelect from '@/pages/studentMobile/seminar/Seminarselect'
+import SeminarIndex from '@/pages/studentMobile/seminar/SeminarIndex'
+import SeminarIndexProcessing from '@/components/studentMobile/SeminarProcessing'
 
 Vue.use(Router)
 
@@ -28,21 +29,19 @@ export default new Router({
       path:'/seminar/seminarIndex',
       name:'SeminarIndex',
       component:SeminarIndex,
-      children:[{
-        path:'finished',
-        name:'SeminarIndexFinished'
-      },
+      children:[
+        {
+          path:'finished'
+        },
         {
           path:'processing',
-          name:'SeminarIndexProcessing'
+          component:SeminarIndexProcessing
         },
         {
-          path:'noSignUp',
-          name:'SeminarIndexNoSignUp'
+          path:'noSignUp'
         },
         {
-          path:'signUp',
-          name:'SeminarIndexNoSignUp'
+          path:'signUp'
         }
       ]
     }
