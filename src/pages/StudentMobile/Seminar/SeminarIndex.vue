@@ -7,8 +7,9 @@
         <div class="seminar-info">
           <student-mobile-seminar-info></student-mobile-seminar-info>
         </div>
-        <div class="into-seminar">
-          <mt-button type="primary">进入讨论课</mt-button>
+        <div class="operation">
+          <!--不同状态的讨论课操作-->
+          <router-view></router-view>
         </div>
       </div>
     </div>

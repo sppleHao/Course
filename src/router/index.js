@@ -15,19 +15,36 @@ export default new Router({
       component: TeacherPCLogin
     },
     {
-      path:'/Seminar/CourseSelect',
+      path:'/seminar/courseSelect',
       name:'CourseSelect',
       component:SeminarCourseSelect,
     },
     {
-      path:'/Seminar/SeminarSelect',
+      path:'/seminar/seminarSelect',
       name:'SeminarSelect',
       component:SeminarSelect
     },
     {
-      path:'/Seminar/SeminarIndex',
+      path:'/seminar/seminarIndex',
       name:'SeminarIndex',
-      component:SeminarIndex
+      component:SeminarIndex,
+      children:[{
+        path:'finished',
+        name:'SeminarIndexFinished'
+      },
+        {
+          path:'processing',
+          name:'SeminarIndexProcessing'
+        },
+        {
+          path:'noSignUp',
+          name:'SeminarIndexNoSignUp'
+        },
+        {
+          path:'signUp',
+          name:'SeminarIndexNoSignUp'
+        }
+      ]
     }
   ]
 })

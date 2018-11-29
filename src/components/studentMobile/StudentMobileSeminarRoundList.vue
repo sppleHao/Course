@@ -1,6 +1,5 @@
 <template>
   <div>
-    <mt-header title="讨论课信息"></mt-header>
     <div v-for="round in rounds" :key="round.roundNum">
       <mt-header  :title="roundNumToString(round.roundNum)">
       </mt-header>
