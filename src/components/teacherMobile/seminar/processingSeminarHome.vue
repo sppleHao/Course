@@ -8,34 +8,36 @@
     <div class="main">
       <div class="current-class">{{current_class}}</div>
       <div style="margin-left:5%;border-bottom:solid #E3E3E3 1px;width:90%;background: #fff"></div>
+      <div class="gray-div"><span class="span1">轮次：</span><span class="R-span2">{{round}}</span></div>
       <div class="white-div"><span class="span1">主题：</span><span class="span2">{{theme}}</span></div>
       <div class="gray-div"><span class="span1">课程序号：</span><span class="span2">{{number}}</span></div>
       <div class="white-div"><span class="span1">要求：</span><span class="span2">{{requirement}}</span></div>
       <div class="gray-div">
         <span class="span1">课程情况：</span>
-        <span class="P-span2">暂停</span>
+        <span class="span2">{{situation}}<a href="../../" style="color:#8BC34A;margin-left: 12%;text-decoration: underline ">查看信息</a></span>
       </div>
-      <button class="button" onclick="window.location.href='../../'"><span>继续讨论课</span></button>
+      <button class="button" onclick="window.location.href='../../'"><span>进入讨论课</span></button>
     </div>
   </div>
 </template>
 
 <script>
-  export default {
-    name: "processingSeminarHome",
-    data(){
-      return {
-        name:'OOAD',
-        round:'第二轮',
-        theme:'领域模型',
-        number:'1',
-        requirement:'界面导航图和所有界面原型设计课堂讨论每个小组15分钟',
-        current_class:'2016（2）'
+    export default {
+        name: "processingSeminarHome",
+      data(){
+          return {
+            name:'OOAD',
+            round:'第二轮',
+            theme:'领域模型',
+            number:'1',
+            requirement:'界面导航图和所有界面原型设计课堂讨论每个小组15分钟',
+            situation:'正在进行',
+            current_class:'2016（2）'
+          }
+      },
+      methods:{
       }
-    },
-    methods:{
     }
-  }
 </script>
 
 <style scoped>
@@ -75,7 +77,7 @@
     /*padding: 20px;*/
     height: 9%;
     width: 100%;
-    margin-top: 30%;
+    margin-top: 20%;
   }
   .gray-div{
     height: 10%;
@@ -106,10 +108,10 @@
     display: flex;
     justify-content: center;
   }
-  .P-span2{
+  .R-span2{
     font-family:思源黑体;
     font-size:16px;
-    color: red;
+    color: #8BC34A;
     width: 66%;
     display: flex;
     justify-content: center;
