@@ -12,7 +12,7 @@
         <i style="display: block;float: right;margin-right: 3%"><Icon type="ios-eye-outline" size="25"/></i>
       </div>
       <button class="button"><span>登录</span></button>
-      <div class="a-dev"><a href="" style="float:right;margin-right: 3%;">忘记密码</a></div>
+      <div class="a-dev"><a href="../accountAndSettings/MfindPassword" style="float:right;margin-right: 3%;">忘记密码</a></div>
 
       <div class="foot">初始登录默认密码为123456</div>
     </div>
@@ -43,8 +43,8 @@
     justify-content: center;
   }
   .root {
-    height: 103%;
-    width: 103%;
+    height: 100%;
+    width: 100%;
     background: #fff;
   }
   .main{
