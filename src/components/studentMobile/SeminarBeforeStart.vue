@@ -6,7 +6,7 @@
 
 <script>
     export default {
-        name: "SeminarIndexBeforDDL"
+        name: "SeminarIndexBeforeStart"
     }
 </script>
 

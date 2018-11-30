@@ -1,8 +1,6 @@
 <template>
   <mt-header fixed v-bind:title="headTitle">
-    <router-link to="" slot="left">
-      <mt-button icon="back"></mt-button>
-    </router-link>
+    <mt-button icon="back" @click="pageBack" slot="left"></mt-button>
     <mt-button icon="more" slot="right"></mt-button>
   </mt-header>
 </template>
@@ -13,6 +11,11 @@ export default {
   props:['headTitle', 'backURL'],
   data () {
     return {
+    }
+  },
+  methods:{
+    pageBack: function () {
+      this.$router.go(-1)
     }
   }
 }

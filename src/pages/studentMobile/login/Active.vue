@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="header">
-      <student-mobile-header headTitle="账号激活"></student-mobile-header>
+      <student-mobile-header head-title="账号激活"></student-mobile-header>
     </div>
     <div class="container">
       <active-form></active-form>

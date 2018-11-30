@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="header">
-      <student-mobile-header headTitle="学生登陆"></student-mobile-header>
+      <student-mobile-header head-title="学生登陆"></student-mobile-header>
     </div>
     <div class="container">
       <login-form></login-form>

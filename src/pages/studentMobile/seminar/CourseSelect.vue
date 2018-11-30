@@ -1,7 +1,7 @@
 <template>
     <div>
       <div class="header">
-        <student-mobile-header :headTitle="headTitle"></student-mobile-header>
+        <student-mobile-header :head-title="headTitle"></student-mobile-header>
       </div>
       <div class="container">
         <student-mobile-course-list :courses="courses"></student-mobile-course-list>

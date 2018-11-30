@@ -1,10 +1,10 @@
 <template>
   <div>
     <div class="header">
-      <student-mobile-header headTitle="找回密码"></student-mobile-header>
+      <student-mobile-header head-title="找回密码"></student-mobile-header>
     </div>
     <div class="container">
-      <new-password-form :is-login="false" :email="null" ></new-password-form>
+      <new-password-form :email="null" ></new-password-form>
     </div>
   </div>
 </template>

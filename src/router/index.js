@@ -6,12 +6,13 @@ import StudentMobileLogin from '@/pages/studentMobile/login/Login'
 import StudentMobileActive from '@/pages/studentMobile/login/Active'
 import StudentMobileFindBackPassword from '@/pages/studentMobile/login/FindBackPassword'
 
-import SeminarCourseSelect from '@/pages/studentMobile/seminar/Courseselect'
+import StudentMobileAccountIndex from '@/pages/studentMobile/account/AccountIndex'
+
+import StudentMobileCourseIndex from '@/pages/studentMobile/course/CourseIndex'
+
+//import SeminarCourseSelect from '@/pages/studentMobile/seminar/Courseselect'
 import SeminarSelect from '@/pages/studentMobile/seminar/Seminarselect'
 import SeminarIndex from '@/pages/studentMobile/seminar/SeminarIndex'
-import SeminarIndexBeforeDDL from '@/components/studentMobile/SeminarBeforeDDL'
-import SeminarIndexProcessing from '@/components/studentMobile/SeminarProcessing'
-import SeminarIndexSignUp from '@/components/studentMobile/SeminarSignUp'
 
 Vue.use(Router)
 
@@ -32,39 +33,35 @@ export default new Router({
     },
     {
       path:'/studentMobile/findPassword',
-      component:StudentMobileFindBackPassword
+      component:StudentMobileFindBackPassword,
+      props:true
     },
     {
-      path:'/seminar/courseSelect',
-      name:'CourseSelect',
-      component:SeminarCourseSelect,
+      path:'/studentMobile/account',
+      component:StudentMobileAccountIndex,
+      alias:'/studentMobile/course',
     },
     {
-      path:'/seminar/seminarSelect',
+      path:'/studentMobile/course/:courseId',
+      component:StudentMobileCourseIndex,
+      props:true
+    },
+    // {
+    //   path:'/studentMobile/course/:courseId/seminar',
+    //   name:'CourseSelect',
+    //   component:SeminarCourseSelect,
+    // },
+    {
+      path:'/studentMobile/course/:courseId/seminar',
       name:'SeminarSelect',
-      component:SeminarSelect
+      component:SeminarSelect,
+      props:true
     },
     {
-      path:'/seminar/seminarIndex',
+      path:'/studentMobile/course/:courseId/seminar/:seminarId',
       name:'SeminarIndex',
       component:SeminarIndex,
-      children:[
-        {
-          path:'finished'
-        },
-        {
-          path:'processing',
-          component:SeminarIndexProcessing
-        },
-        {
-          path:'before',
-          component:SeminarIndexBeforeDDL
-        },
-        {
-          path:'signUp',
-          component:SeminarIndexSignUp
-        }
-      ]
+      props:true
     }
   ]
 })
