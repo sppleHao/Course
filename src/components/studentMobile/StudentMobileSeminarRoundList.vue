@@ -1,11 +1,11 @@
 <template>
   <div>
-    <div v-for="round in rounds" :key="round.roundNum">
-      <mt-header  :title="roundNumToString(round.roundNum)">
+    <div v-for="round in rounds" :key="round.roundOrder">
+      <mt-header  :title="`第${round.roundOrder}轮`">
       </mt-header>
       <mt-cell v-for="seminar in round.seminars" is-link
-               :key="seminar.date"
-               :title="seminar.title"
+               :key="seminar.id"
+               :title="seminar.topic"
                :to="{name:'StudentMobileSeminarIndex',params:{courseId,classId,seminarId:seminar.id},query:{courseName}}"></mt-cell>
     </div>
   </div>
@@ -16,14 +16,11 @@ export default {
   name: "StudentMobileSeminarRoundList",
   data () {
     return {
-      // rounds: [{roundNum: 1, courses: []}, {roundNum: 2, courses: []}]
     }
   },
   props:['rounds','courseId','classId','courseName'],
   methods:{
-    roundNumToString: function (roundNum)  {
-        return `第${roundNum}轮`
-    }
+
   }
 }
 </script>

@@ -55,7 +55,7 @@ export default {
   },
   computed: {
     headTitle:function () {
-      return this.courseName +'-'+this.classId
+      return this.courseName +'-'+this.$route.query.className
     },
     rounds: function () {
       return this.classifySeminarInRound(this.seminars)
@@ -68,14 +68,14 @@ export default {
     classifySeminarInRound:function (seminars) {
       let r = []
       seminars.forEach((seminar) => {
-        if (!r[seminar.roundNum - 1]) {
+        if (!r[seminar.roundOrder - 1]) {
           var round = {}
-          round.roundNum = seminar.roundNum
+          round.roundOrder = seminar.roundOrder
           round.seminars = []
           round.seminars.push(seminar)
-          r[seminar.roundNum - 1] = round
+          r[seminar.roundOrder - 1] = round
         } else {
-          r[seminar.roundNum - 1].seminars.push(seminar)
+          r[seminar.roundOrder - 1].seminars.push(seminar)
         }
       })
       return r
@@ -85,16 +85,16 @@ export default {
     //通过courseId获得该课程所有讨论课
 
     //test
-    this.seminars= [{id:'1', date: '10.8.2018', title: '业务流程分析', roundNum: 1},
-      {id:'2', date: '10.22.2018', title: '领域模型设计', roundNum: 1},
-      {id:'3', date: '11.3.2018', title: '代码检查', roundNum: 2},
-      {id:'4', date: '11.18.2018', title: '对象模型设计', roundNum: 2}]
+    this.seminars= [{id:'1', topic: '业务流程分析', roundOrder: 1},
+      {id:'2', topic: '领域模型设计', roundOrder: 1},
+      {id:'3', topic: '代码检查', roundOrder: 2},
+      {id:'4', topic: '对象模型设计', roundOrder: 2}]
 
     //通过courseId和teamId获得队伍已报名的所有讨论课
 
     //test
-    this.signUpSeminars = [{id:'2', date: '10.22.2018', title: '领域模型设计', roundNum: 1},
-      {id:'3', date: '11.3.2018', title: '代码检查', roundNum: 2}]
+    this.signUpSeminars = [{id:'1', topic: '业务流程分析', roundOrder: 1},
+      {id:'3', topic: '代码检查', roundOrder: 2}]
 
   },
   props:['courseId','classId','teamId']

@@ -10,9 +10,12 @@ import StudentMobileAccountIndex from '@/pages/studentMobile/account/AccountInde
 
 import StudentMobileCourseIndex from '@/pages/studentMobile/course/CourseIndex'
 
-import SeminarSelect from '@/pages/studentMobile/seminar/Seminarselect'
-import SeminarIndex from '@/pages/studentMobile/seminar/SeminarIndex'
-import SeminarSignUp from '@/pages/studentMobile/seminar/operation/SignUp'
+import StudentMobileSeminarSelect from '@/pages/studentMobile/seminar/Seminarselect'
+import StudentMobileSeminarIndex from '@/pages/studentMobile/seminar/SeminarIndex'
+
+import StudentMobileSeminarSignUp from '@/pages/studentMobile/seminar/operation/SignUp'
+import StudentMobileSeminarPptDownload from '@/pages/studentMobile/seminar/operation/PPTDownload'
+import StudentMobileSeminarOperations from '@/pages/studentMobile/seminar/operation/Operations'
 
 Vue.use(Router)
 
@@ -36,7 +39,7 @@ export default new Router({
       component:StudentMobileActive
     },
     {
-      //忘记密码界面
+      //忘记密码和修改密码界面
       path:'/studentMobile/findPassword',
       name:'StudentMobileFindBackPassword',
       component:StudentMobileFindBackPassword,
@@ -60,21 +63,34 @@ export default new Router({
       //讨论课选择界面
       path:'/studentMobile/course/:courseId/class/:classId/seminar',
       name:'StudentMobileSeminarSelect',
-      component:SeminarSelect,
+      component:StudentMobileSeminarSelect,
       props:true
     },
     {
       //讨论课首页
       path:'/studentMobile/course/:courseId/class/:classId/seminar/:seminarId',
       name:'StudentMobileSeminarIndex',
-      component:SeminarIndex,
+      component:StudentMobileSeminarIndex,
       props:true
     },
     {
       //讨论课报名
       path:'/studentMobile/course/:courseId/class/:classId/seminar/:seminarId/signUp',
       name:'StudentMobileSeminarSignUp',
-      component:SeminarSignUp,
+      component:StudentMobileSeminarSignUp,
+      props:true
+    },
+    {
+      //下载ppt
+      path:'/studentMobile/course/:courseId/class/:classId/seminar/:seminarId/pptDownload',
+      name:'StudentMobileSeminarPptDownload',
+      component:StudentMobileSeminarPptDownload,
+      props:true
+    },
+    {
+      path:'/studentMobile/course/:courseId/class/:classId/seminar/:seminarId/:operation',
+      name:'StudentMobileSeminarOperations',
+      component:StudentMobileSeminarOperations,
       props:true
     }
   ]

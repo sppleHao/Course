@@ -22,7 +22,7 @@
           }
       },
       methods: {
-        //登陆验证
+        //通过account和password登陆验证
         checkLogin: function () {
             //加载图标
             //this.$indicator.open()

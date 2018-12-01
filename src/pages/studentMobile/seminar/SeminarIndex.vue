@@ -4,51 +4,76 @@
         <student-mobile-header :head-title="headTitle"></student-mobile-header>
       </div>
       <div class="container">
+        <!--讨论课信息-->
         <div class="seminar-info">
-          <student-mobile-seminar-info :course="course"></student-mobile-seminar-info>
+          <student-mobile-seminar-info :seminar="seminar"></student-mobile-seminar-info>
         </div>
         <div class="operation">
           <!--不同状态的讨论课操作-->
-          <seminar-index-before-start v-if="course.status=='未开始'"
-                                      :course-id="courseId"
-                                      :seminar-id="seminarId"
-          ></seminar-index-before-start>
-          <seminar-processing v-if="course.status=='进行中'"></seminar-processing>
-          <seminar-sign-up v-if="course.status=='已报名'"></seminar-sign-up>
-          <seminar-finished v-if="course.status=='已结束'"></seminar-finished>
+
+          <!--未开始-->
+          <student-mobile-seminar-operation-before-start v-if="seminar.status=='未开始'"
+                                                         :course-id="courseId"
+                                                         :seminar-id="seminarId"
+          >
+          </student-mobile-seminar-operation-before-start>
+
+          <seminar-sign-up v-if="seminar.status=='已报名'"></seminar-sign-up>
+
+          <seminar-processing v-if="seminar.status=='进行中'"></seminar-processing>
+
+          <seminar-finished v-if="seminar.status=='已结束'"
+                            :course-id="courseId"
+                            :seminar-id="seminarId"></seminar-finished>
         </div>
       </div>
     </div>
 </template>
 
 <script>
+    import axios from 'axios'
     import StudentMobileHeader from "../../../components/studentMobile/StudentMobileHeader";
     import StudentMobileSeminarInfo from "../../../components/studentMobile/StudentMobileSeminarInfo";
     import SeminarFinished from "../../../components/studentMobile/SeminarFinished";
-    import SeminarIndexBeforeStart from "../../../components/studentMobile/SeminarBeforeStart";
     import SeminarProcessing from "../../../components/studentMobile/SeminarProcessing";
     import SeminarSignUp from "../../../components/studentMobile/SeminarSignUp";
+    import StudentMobileSeminarOperationBeforeStart
+      from "../../../components/studentMobile/StudentMobileSeminarOperationBeforeStart";
     export default {
         components: {
+          StudentMobileSeminarOperationBeforeStart,
           SeminarSignUp,
           SeminarProcessing,
-          SeminarIndexBeforeStart, SeminarFinished, StudentMobileSeminarInfo, StudentMobileHeader},
+          SeminarFinished, StudentMobileSeminarInfo, StudentMobileHeader},
+        props:['courseId','seminarId'],
         data () {
             return {
-              courseId:'',
-              seminarId:'',
               headTitle:this.$route.query.courseName+'-讨论课',
-              course:''
+              seminar:''
             }
         },
         created() {
-          this.courseId = this.$route.params.courseId
-
           //通过seminarId获得讨论课的信息
+          // this.seminar = this.getSeminarInfos('url',this.seminarId)
 
-          this.seminarId = this.$route.params.seminarId
-          this.course = {roundNum:'2',seminarTitle:'业务流程分析',seminarOrder:'2',
-            content:'界面导航图和界面原型设计',status:'已结束'}
+          //test
+          this.seminar = {
+            roundOrder:'2',topic:'业务流程分析',order:'2',
+            intro:'界面导航图和界面原型设计',status:'已结束',
+            signUpStartTime:'10.1.2018 12:00',signUpEndTime:'10.7.2018 12:00'}
+          this.seminar.id = this.seminarId
+        },
+        methods:{
+          //通过seminarId从后端获得讨论课的信息
+          getSeminarInfos:function (URL,seminarId) {
+            axios.get(URL,seminarId)
+              .then((res)=>{
+                return res.data.seminar
+              })
+              .catch((err)=>{
+                console.log(err)
+              })
+          }
         }
     }
 </script>

@@ -32,7 +32,7 @@
           this.user.token=sessionStorage.getItem('token')
         },
         methods:{
-          //发送验证码
+          //通过userId发送验证码
           sendCaptcha:function(){
 
           },

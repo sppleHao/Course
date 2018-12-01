@@ -9,15 +9,17 @@
 <script>
     export default {
         name: "SeminarFinished",
+        props:['seminarId','courseId'],
         methods:{
           showScore: function () {
-            this.$router.push({name:'seminarScores',params:{seminarId,classId}})
+            this.$router.push({name:'StudentMobileSeminarOperations',params:{seminarId:this.seminarId,courseId:this.courseId,operation:'score'}})
           },
           showPPT:function () {
-            this.$router.push({name:'seminarPPTs',params:{seminarId,classId}})
+            this.$router.push({name:'StudentMobileSeminarPptDownload',
+              params:{seminarId:this.seminarId,courseId:this.courseId,operation:'ppt'}})
           },
           showReport:function () {
-            this.$router.push({name:'seminarReports',params:{seminarId,classId}})
+            this.$router.push({name:'StudentMobileSeminarOperations',params:{seminarId:this.seminarId,courseId:this.courseId,operation:'report'}})
           }
         }
     }
