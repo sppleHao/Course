@@ -13,13 +13,21 @@
       <!--主体-->
       <mt-tab-container v-model="selected">
 
+        <!--所有讨论课-->
         <mt-tab-container-item id="全部">
-          <student-mobile-seminar-round-list :course-id="course.id" :rounds="rounds">
+          <student-mobile-seminar-round-list :course-id="courseId"
+                                             :class-id="classId"
+                                             :course-name="courseName"
+                                             :rounds="rounds">
           </student-mobile-seminar-round-list>
         </mt-tab-container-item>
 
+        <!--已报名的讨论课-->
         <mt-tab-container-item id="已报名">
-          <student-mobile-seminar-round-list :course-id="course.id"  :rounds="roundsWithSignUp">
+          <student-mobile-seminar-round-list :course-id="courseId"
+                                             :class-id="classId"
+                                             :course-name="courseName"
+                                             :rounds="roundsWithSignUp">
           </student-mobile-seminar-round-list>
         </mt-tab-container-item>
       </mt-tab-container>
@@ -32,24 +40,23 @@
 import StudentMobileHeader from "../../../components/studentMobile/StudentMobileHeader";
 import StudentMobileSeminarRoundList from "../../../components/studentMobile/StudentMobileSeminarRoundList";
 export default {
-  name: "SeminarSelect",
   components: {StudentMobileSeminarRoundList, StudentMobileHeader},
   data () {
     return {
-      headTitle:'',
       course:'',
+      // classId:'',
       selected:'全部',
       //所有讨论课
-      seminars: [{id:'1', date: '10.8.2018', title: '业务流程分析', roundNum: 1},
-        {id:'2', date: '10.22.2018', title: '领域模型设计', roundNum: 1},
-        {id:'3', date: '11.3.2018', title: '代码检查', roundNum: 2},
-        {id:'4', date: '11.18.2018', title: '对象模型设计', roundNum: 2}],
+      seminars:'',
       //已报名讨论课
-      signUpSeminars: [{id:'2', date: '10.22.2018', title: '领域模型设计', roundNum: 1},
-        {id:'3', date: '11.3.2018', title: '代码检查', roundNum: 2}]
+      signUpSeminars:'',
+      courseName: this.$route.query.courseName
     }
   },
   computed: {
+    headTitle:function () {
+      return this.courseName +'-'+this.classId
+    },
     rounds: function () {
       return this.classifySeminarInRound(this.seminars)
     },
@@ -75,15 +82,22 @@ export default {
     }
   },
   created () {
-    this.course = {
-      id:this.$route.params.courseId,
-      name:'OOAD'
-    }
-    //通过API获得该课程下所有讨论课
-    //通过API获得该课程下该组报名的讨论课
+    //通过courseId获得该课程所有讨论课
 
-    this.headTitle=this.course.name
-  }
+    //test
+    this.seminars= [{id:'1', date: '10.8.2018', title: '业务流程分析', roundNum: 1},
+      {id:'2', date: '10.22.2018', title: '领域模型设计', roundNum: 1},
+      {id:'3', date: '11.3.2018', title: '代码检查', roundNum: 2},
+      {id:'4', date: '11.18.2018', title: '对象模型设计', roundNum: 2}]
+
+    //通过courseId和teamId获得队伍已报名的所有讨论课
+
+    //test
+    this.signUpSeminars = [{id:'2', date: '10.22.2018', title: '领域模型设计', roundNum: 1},
+      {id:'3', date: '11.3.2018', title: '代码检查', roundNum: 2}]
+
+  },
+  props:['courseId','classId','teamId']
 }
 </script>
 

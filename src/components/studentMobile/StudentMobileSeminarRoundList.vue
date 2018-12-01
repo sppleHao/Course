@@ -6,7 +6,7 @@
       <mt-cell v-for="seminar in round.seminars" is-link
                :key="seminar.date"
                :title="seminar.title"
-               :to="{path:`/studentMobile/course/${courseId}/seminar/${seminar.id}`}"></mt-cell>
+               :to="{name:'StudentMobileSeminarIndex',params:{courseId,classId,seminarId:seminar.id},query:{courseName}}"></mt-cell>
     </div>
   </div>
 </template>
@@ -19,7 +19,7 @@ export default {
       // rounds: [{roundNum: 1, courses: []}, {roundNum: 2, courses: []}]
     }
   },
-  props:['rounds','courseId'],
+  props:['rounds','courseId','classId','courseName'],
   methods:{
     roundNumToString: function (roundNum)  {
         return `第${roundNum}轮`

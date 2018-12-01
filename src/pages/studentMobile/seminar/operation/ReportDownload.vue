@@ -4,7 +4,7 @@
 
 <script>
     export default {
-        name: "PPTDownload"
+        name: "ReportDownload"
     }
 </script>
 

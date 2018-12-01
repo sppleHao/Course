@@ -11,21 +11,23 @@
   import axois from  'axios';
   import {Toast,Indicator} from 'mint-ui'
     export default {
-        name: "LoginForm",
+      name: "StudentMobileLoginForm",
       data () {
           return {
             user:{
               account:'',
-              password:''
+              password:'',
+              isActive:''
             }
           }
       },
       methods: {
+        //登陆验证
         checkLogin: function () {
             //加载图标
             //this.$indicator.open()
 
-            //验证
+            //通过后端验证
             // axois.post('http://localhost:3000/users/login',this.user)
             //   .then((response)=>{
             //     let save_token = {
@@ -56,13 +58,20 @@
               userId:'1',
             }
           }
-          localStorage.setItem('token',save_token.token)
-          localStorage.setItem('account',save_token.user.account);
-          localStorage.setItem('userId',save_token.user.id);
+          sessionStorage.setItem('token',save_token.token)
+          sessionStorage.setItem('account',save_token.user.account);
+          sessionStorage.setItem('userId',save_token.user.id);
 
-          this.$router.push({path:'/studentMobile/account'})
+          if (this.user.isActive){
+            this.$router.push({name:'StudentMobileAccountIndex'})
+          }
+          else {
+            this.$router.push({name:'StudentMobileActive'})
+          }
+
 
           },
+        //找回密码跳转
         findBackPassword: function () {
           this.$router.push({path:'/studentMobile/findPassword'})
         }

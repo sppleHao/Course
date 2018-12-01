@@ -13,7 +13,7 @@
 
 <script>
     export default {
-        name: "AccountSettings",
+        name: "StudentMobileAccountSettings",
         props:['account']
     }
 </script>

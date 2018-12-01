@@ -9,7 +9,10 @@
         </div>
         <div class="operation">
           <!--不同状态的讨论课操作-->
-          <seminar-index-before-start v-if="course.status=='未开始'"></seminar-index-before-start>
+          <seminar-index-before-start v-if="course.status=='未开始'"
+                                      :course-id="courseId"
+                                      :seminar-id="seminarId"
+          ></seminar-index-before-start>
           <seminar-processing v-if="course.status=='进行中'"></seminar-processing>
           <seminar-sign-up v-if="course.status=='已报名'"></seminar-sign-up>
           <seminar-finished v-if="course.status=='已结束'"></seminar-finished>
@@ -26,18 +29,27 @@
     import SeminarProcessing from "../../../components/studentMobile/SeminarProcessing";
     import SeminarSignUp from "../../../components/studentMobile/SeminarSignUp";
     export default {
-        name: "SeminarIndex",
-      components: {
-        SeminarSignUp,
-        SeminarProcessing,
-        SeminarIndexBeforeStart, SeminarFinished, StudentMobileSeminarInfo, StudentMobileHeader},
-      data () {
-          return {
-            headTitle:'OOAD-讨论课',
-            course:{roundNum:'2',seminarTitle:'业务流程分析',seminarOrder:'2',
-              content:'界面导航图和界面原型设计',status:'未开始'}
-          }
-      }
+        components: {
+          SeminarSignUp,
+          SeminarProcessing,
+          SeminarIndexBeforeStart, SeminarFinished, StudentMobileSeminarInfo, StudentMobileHeader},
+        data () {
+            return {
+              courseId:'',
+              seminarId:'',
+              headTitle:this.$route.query.courseName+'-讨论课',
+              course:''
+            }
+        },
+        created() {
+          this.courseId = this.$route.params.courseId
+
+          //通过seminarId获得讨论课的信息
+
+          this.seminarId = this.$route.params.seminarId
+          this.course = {roundNum:'2',seminarTitle:'业务流程分析',seminarOrder:'2',
+            content:'界面导航图和界面原型设计',status:'已结束'}
+        }
     }
 </script>
 

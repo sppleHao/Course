@@ -4,17 +4,17 @@
       <student-mobile-header head-title="账号激活"></student-mobile-header>
     </div>
     <div class="container">
-      <active-form></active-form>
+      <student-mobile-active-form></student-mobile-active-form>
     </div>
   </div>
 </template>
 
 <script>
-    import ActiveForm from "../../../components/studentMobile/ActiveForm";
     import StudentMobileHeader from "../../../components/studentMobile/StudentMobileHeader";
+    import StudentMobileActiveForm from "../../../components/studentMobile/StudentMobileActiveForm";
     export default {
         name: "Active",
-      components: {StudentMobileHeader, ActiveForm}
+        components: {StudentMobileActiveForm, StudentMobileHeader}
     }
 </script>
 
