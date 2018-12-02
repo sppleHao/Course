@@ -69,7 +69,7 @@
         },
         created() {
           //通过seminarId获得讨论课的信息
-          // this.seminar = this.getSeminarInfos('url',this.seminarId)
+          // this.getSeminarInfos('url',this.seminarId)
 
           //test
           this.seminar = {
@@ -83,7 +83,7 @@
           getSeminarInfos:function (URL,seminarId) {
             axios.get(URL,seminarId)
               .then((res)=>{
-                return res.data.seminar
+                this.seminar = res.data.seminar
               })
               .catch((err)=>{
                 console.log(err)

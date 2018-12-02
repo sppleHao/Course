@@ -5,7 +5,7 @@
       <mt-field placeholder="邮箱" v-model="user.email"></mt-field>
       <mt-field placeholder="验证码" v-model="user.captcha"></mt-field>
       <mt-button size="small" @click="sendCaptcha">发送验证码</mt-button>
-      <mt-button type="primary" @click="activeAccont">激活账号</mt-button>
+      <mt-button type="primary" @click="activeAccount">激活账号</mt-button>
     </div>
 </template>
 
@@ -17,37 +17,56 @@
         data() {
           return {
             user:{
-              id:'',
+              account:'',
               password:'',
               rePassword:'',
               email:'',
               captcha:'',
-              token:''
-            }
+              id:''
+            },
+            //todo
+            sendCaptchaUrl:'',
+            activeAccountUrl:''
           }
         },
-        //通过sessionStorage获得userId和token
+        //通过sessionStorage获得userId和account
         created(){
-          this.user.id=sessionStorage.getItem('token')
-          this.user.token=sessionStorage.getItem('token')
+          this.user.account=sessionStorage.getItem('account')
+          this.user.id=sessionStorage.getItem('userId')
         },
         methods:{
-          //通过userId发送验证码
+          //向邮箱发送验证码
           sendCaptcha:function(){
-
+            //通过account发送验证码
+            axios.post(this.sendCaptchaUrl,this.user.account)
+              .then((res)=>{
+                Toast({
+                  message: '验证码已发送至邮箱',
+                  iconClass: 'icon icon-success'
+                });
+              })
+              .catch((err)=>{
+                console.log(err)
+              })
           },
           //激活账号
-          activeAccont:function () {
+          activeAccount:function () {
             //通过axios后端激活
 
-            //动画
-            Toast({
-              message: '激活成功',
-              iconClass: 'icon icon-success'
-            });
+            axios.post(this.activeAccountUrl,this.user)
+              .then(res=>{
+                //动画
+                Toast({
+                  message: '激活成功',
+                  iconClass: 'icon icon-success'
+                });
 
-            //跳转
-            this.$router.push({name:'StudentMobileAccountIndex',query:{selected:'我的'}})
+                //跳转
+                this.$router.push({name:'StudentMobileAccountIndex',query:{selected:'我的'}})
+              })
+              .catch(err=>{
+                console.log(err)
+              })
           }
         }
     }

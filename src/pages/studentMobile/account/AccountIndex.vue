@@ -39,7 +39,10 @@
           return {
             selected:'我的',
             user:'',
-            courses:''
+            courses:'',
+            //todo
+            getCoursesUrl:'',
+            getAccountInformationUrl:''
           }
       },
       components: {StudentMobileAccountSettings, StudentMobileCourseList, StudentMobileHeader},
@@ -48,16 +51,18 @@
         this.selected = this.$route.query.selected
 
         //获得userId
-        let userId = sessionStorage.getItem('userId')
+        // let userId = sessionStorage.getItem('userId')
 
-        //通过userId从后端查找所选择的课程
+        //查找用户拥有的所有课程
         // this.getCourses(userId)
 
-        //通过userId从后端查找所选择的user信息
-        // this.getAccountInfos(userId)
+        //查找用户的信息
+        // this.getAccountInformation(userId)
 
         //test
-        this.courses = [{id: '1', name: 'OOAD'}, {id: '2', name: 'J2EE'}]
+        this.courses = [
+          {id: '1', name: 'OOAD'},
+          {id: '2', name: 'J2EE'}]
 
         this.user = {
           name:'王二',
@@ -67,17 +72,19 @@
         }
       },
       methods:{
+        //通过userId从后端查找所选择的课程
         getCourses:function (userId) {
-          axios.post('...',userId)
+          axios.post(this.getCoursesUrl,userId)
             .then((res)=>{
-              this.course = res.data.courses
+              this.courses = res.data.courses
             })
             .catch((err)=>{
               console.log(err)
             })
         },
-        getAccountInfos:function () {
-          axios.post('...',userId)
+        //通过userId从后端查找所选择的user信息
+        getAccountInformation:function () {
+          axios.post(this.getAccountInformationUrl,this,userId)
             .then((res)=>{
               this.user = res.data.user
             })

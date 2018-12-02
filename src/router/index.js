@@ -72,12 +72,14 @@ export default new Router({
       props:true
     },
     {
+      //讨论课操作（查看成绩、下载ppt、下载书面报告、报名、取消报名）
       path:'/studentMobile/course/:courseId/class/:classId/seminar/:seminarId/operation/:operation',
       name:'StudentMobileSeminarOperations',
       component:StudentMobileSeminarOperations,
       props:true
     },
     {
+      //讨论课展示
       path:'/studentMobile/course/:courseId/class/:classId/seminar/:seminarId/presenting',
       name:'StudentMobileSeminarPresenting',
       component:StudentMobileSeminarPresenting,

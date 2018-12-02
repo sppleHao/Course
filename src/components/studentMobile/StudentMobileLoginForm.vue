@@ -17,63 +17,61 @@
             user:{
               account:'',
               password:'',
-              isActive:''
-            }
+            },
+            isActive:'',
+            //todo
+            checkLoginUrl:''
           }
       },
       methods: {
-        //通过account和password登陆验证
+
+        //登陆验证
         checkLogin: function () {
             //加载图标
             //this.$indicator.open()
 
-            //通过后端验证
-            // axois.post('http://localhost:3000/users/login',this.user)
-            //   .then((response)=>{
-            //     let save_token = {
-            //       token:'123456', //response.body.data.token,
-            //       user:{ //response.body.data.user
-            //         account:'2817',
-            //         userId:'1',
-            //       }
-            //     }
-            //     localStorage.setItem('token',save_token.token)
-            //     localStorage.setItem('account',save_token.user.account);
-            //     localStorage.setItem('userId',save_token.user.id);
-            //     this.$indicator.close()
-            //     Toast({
-            //       message: '登陆成功',
-            //       iconClass: 'icon icon-success'
-            //     })
-            //     this.$router.push({path:'/studentMobile/account'})
-            //   })
-            //   .catch((error)=>{
-            //     console.log(error)
-            // })
+            //通过account和password登陆验证
+            axois.post(this.checkLoginUrl,this.user)
+              .then((res)=>{
 
-          let save_token = {
-            token:'123456', //response.body.data.token,
-            user:{ //response.body.data.user
-              account:this.user.account,
-              userId:'1',
-            }
-          }
-          sessionStorage.setItem('token',save_token.token)
-          sessionStorage.setItem('account',save_token.user.account);
-          sessionStorage.setItem('userId',save_token.user.id);
+                let userId = res.data.userId
+                this.isActive = res.data.isActive
 
-          if (this.user.isActive){
-            this.$router.push({name:'StudentMobileAccountIndex',query:{selected:'我的'}})
-          }
-          else {
-            this.$router.push({name:'StudentMobileActive'})
-          }
+                //通过sessionStorage存储userId作为token，account用来验证
+                sessionStorage.setItem('userId',userId)
+                sessionStorage.setItem('account',this.user.account);
 
+                //关闭加载图标
+                this.$indicator.close()
 
+                //弹出提示
+                Toast({
+                  message: '登陆成功',
+                  iconClass: 'icon icon-success'
+                })
+
+                if (this.isActive){
+                  //如果账户是激活的，跳转到首页
+                  this.$router.push({name:'StudentMobileAccountIndex',query:{selected:'我的'}})
+                }
+                else {
+                  //如果账户没有激活，跳转到激活界面
+                  this.$router.push({name:'StudentMobileActive'})
+                }
+
+              })
+              .catch((error)=>{
+                this.$indicator.close()
+                Toast({
+                  message: '错误',
+                  iconClass: 'icon icon-fail'
+                })
+                console.log(error)
+            })
           },
-        //找回密码跳转
+        //跳转到找回密码页
         findBackPassword: function () {
-          this.$router.push({path:'/studentMobile/findPassword'})
+          this.$router.push({name:'StudentMobileFindBackPassword'})
         }
       }
     }

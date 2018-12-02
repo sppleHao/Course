@@ -33,6 +33,11 @@
           sessionStorage.setItem('teamId',this.teamId)
           //通过teamId和courseId获得队伍所在班级
           // this.classId =
+        },
+        methods:{
+          getTeam: function(){
+
+          }
         }
     }
 </script>
