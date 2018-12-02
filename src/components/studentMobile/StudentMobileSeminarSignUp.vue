@@ -17,7 +17,7 @@
     import {Popup} from 'mint-ui'
     import axios from 'axios'
     export default {
-        name: "SeminarSignUp",
+        name: "StudentMobileSeminarSignUp",
         data() {
           return{
             popupVisible:false,
@@ -54,7 +54,7 @@
             //   console.log(error)
             // })
 
-            
+
           }
         }
     }

@@ -8,14 +8,14 @@
 
 <script>
     export default {
-        name: "SeminarFinished",
+        name: "StudentMobileSeminarFinished",
         props:['seminarId','courseId'],
         methods:{
           showScore: function () {
             this.$router.push({name:'StudentMobileSeminarOperations',params:{seminarId:this.seminarId,courseId:this.courseId,operation:'score'}})
           },
           showPPT:function () {
-            this.$router.push({name:'StudentMobileSeminarPptDownload',
+            this.$router.push({name:'StudentMobileSeminarOperations',
               params:{seminarId:this.seminarId,courseId:this.courseId,operation:'ppt'}})
           },
           showReport:function () {

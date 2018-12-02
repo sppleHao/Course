@@ -12,9 +12,6 @@ import StudentMobileCourseIndex from '@/pages/studentMobile/course/CourseIndex'
 
 import StudentMobileSeminarSelect from '@/pages/studentMobile/seminar/Seminarselect'
 import StudentMobileSeminarIndex from '@/pages/studentMobile/seminar/SeminarIndex'
-
-import StudentMobileSeminarSignUp from '@/pages/studentMobile/seminar/operation/SignUp'
-import StudentMobileSeminarPptDownload from '@/pages/studentMobile/seminar/operation/PPTDownload'
 import StudentMobileSeminarOperations from '@/pages/studentMobile/seminar/operation/Operations'
 
 Vue.use(Router)
@@ -71,20 +68,6 @@ export default new Router({
       path:'/studentMobile/course/:courseId/class/:classId/seminar/:seminarId',
       name:'StudentMobileSeminarIndex',
       component:StudentMobileSeminarIndex,
-      props:true
-    },
-    {
-      //讨论课报名
-      path:'/studentMobile/course/:courseId/class/:classId/seminar/:seminarId/signUp',
-      name:'StudentMobileSeminarSignUp',
-      component:StudentMobileSeminarSignUp,
-      props:true
-    },
-    {
-      //下载ppt
-      path:'/studentMobile/course/:courseId/class/:classId/seminar/:seminarId/pptDownload',
-      name:'StudentMobileSeminarPptDownload',
-      component:StudentMobileSeminarPptDownload,
       props:true
     },
     {

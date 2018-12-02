@@ -18,13 +18,13 @@
           >
           </student-mobile-seminar-operation-before-start>
 
-          <seminar-sign-up v-if="seminar.status=='已报名'"></seminar-sign-up>
+          <student-mobile-seminar-sign-up v-if="seminar.status=='已报名'"></student-mobile-seminar-sign-up>
 
-          <seminar-processing v-if="seminar.status=='进行中'"></seminar-processing>
+          <student-mobile-seminar-processing v-if="seminar.status=='进行中'"></student-mobile-seminar-processing>
 
-          <seminar-finished v-if="seminar.status=='已结束'"
+          <student-mobile-seminar-finished v-if="seminar.status=='已结束'"
                             :course-id="courseId"
-                            :seminar-id="seminarId"></seminar-finished>
+                            :seminar-id="seminarId"></student-mobile-seminar-finished>
         </div>
       </div>
     </div>
@@ -34,17 +34,17 @@
     import axios from 'axios'
     import StudentMobileHeader from "../../../components/studentMobile/StudentMobileHeader";
     import StudentMobileSeminarInfo from "../../../components/studentMobile/StudentMobileSeminarInfo";
-    import SeminarFinished from "../../../components/studentMobile/SeminarFinished";
-    import SeminarProcessing from "../../../components/studentMobile/SeminarProcessing";
-    import SeminarSignUp from "../../../components/studentMobile/SeminarSignUp";
+    import StudentMobileSeminarFinished from "../../../components/studentMobile/StudentMobileSeminarFinished";
+    import StudentMobileSeminarProcessing from "../../../components/studentMobile/StudentMobileSeminarProcessing";
     import StudentMobileSeminarOperationBeforeStart
       from "../../../components/studentMobile/StudentMobileSeminarOperationBeforeStart";
+    import StudentMobileSeminarSignUp from "../../../components/studentMobile/StudentMobileSeminarSignUp";
     export default {
         components: {
+          StudentMobileSeminarSignUp,
           StudentMobileSeminarOperationBeforeStart,
-          SeminarSignUp,
-          SeminarProcessing,
-          SeminarFinished, StudentMobileSeminarInfo, StudentMobileHeader},
+          StudentMobileSeminarProcessing,
+          StudentMobileSeminarFinished, StudentMobileSeminarInfo, StudentMobileHeader},
         props:['courseId','seminarId'],
         data () {
             return {

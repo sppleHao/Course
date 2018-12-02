@@ -69,7 +69,7 @@
       //test
       this.teams = [
         {preOrder:'1',id:'3',name:'1-3',preFileUrl:'localhost:3000/preFileUrl/1',reportFileUrl:'localhost:3000/reportFileUrl/1',preScore:'1'},
-        {preOrder:'2',id:'5',name:'1-5',preFileUrl:'localhost:3000/preFileUrl/1',reportFileUrl:'localhost:3000/reportFileUrl/1',preScore:'2'},
+        // {preOrder:'2',id:'5',name:'1-5',preFileUrl:'localhost:3000/preFileUrl/1',reportFileUrl:'localhost:3000/reportFileUrl/1',preScore:'2'},
         {preOrder:'3',id:'2',name:'1-2',preFileUrl:'localhost:3000/preFileUrl/1',reportFileUrl:'localhost:3000/reportFileUrl/1',preScore:'3'},
         {preOrder:'4',id:'7',name:'1-7',preFileUrl:'localhost:3000/preFileUrl/1',reportFileUrl:'localhost:3000/reportFileUrl/1',preScore:'2'},
         {preOrder:'5',id:'6',name:'1-6',preFileUrl:'localhost:3000/preFileUrl/1',reportFileUrl:'localhost:3000/reportFileUrl/1',preScore:'5'},
