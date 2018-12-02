@@ -63,7 +63,7 @@
           sessionStorage.setItem('userId',save_token.user.id);
 
           if (this.user.isActive){
-            this.$router.push({name:'StudentMobileAccountIndex'})
+            this.$router.push({name:'StudentMobileAccountIndex',query:{selected:'我的'}})
           }
           else {
             this.$router.push({name:'StudentMobileActive'})

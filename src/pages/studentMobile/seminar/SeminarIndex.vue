@@ -4,13 +4,19 @@
         <student-mobile-header :head-title="headTitle"></student-mobile-header>
       </div>
       <div class="container">
+        <!--test-->
+        <mt-radio
+          title="讨论课状态（测试）"
+          v-model="seminar.status"
+          :options="['未开始', '已报名', '进行中','已结束']">
+        </mt-radio>
+
         <!--讨论课信息-->
         <div class="seminar-info">
           <student-mobile-seminar-info :seminar="seminar"></student-mobile-seminar-info>
         </div>
         <div class="operation">
           <!--不同状态的讨论课操作-->
-
           <!--未开始-->
           <student-mobile-seminar-operation-before-start v-if="seminar.status=='未开始'"
                                                          :course-id="courseId"
@@ -18,13 +24,22 @@
           >
           </student-mobile-seminar-operation-before-start>
 
-          <student-mobile-seminar-sign-up v-if="seminar.status=='已报名'"></student-mobile-seminar-sign-up>
+          <student-mobile-seminar-sign-up v-if="seminar.status=='已报名'"
+                                          :course-id="courseId"
+                                          :seminar-id="seminarId">
+          </student-mobile-seminar-sign-up>
 
-          <student-mobile-seminar-processing v-if="seminar.status=='进行中'"></student-mobile-seminar-processing>
+          <student-mobile-seminar-processing v-if="seminar.status=='进行中'"
+                                             :seminar-topic="seminar.topic"
+                                             :course-id="courseId"
+                                             :seminar-id="seminarId">
+          </student-mobile-seminar-processing>
 
           <student-mobile-seminar-finished v-if="seminar.status=='已结束'"
                             :course-id="courseId"
-                            :seminar-id="seminarId"></student-mobile-seminar-finished>
+                            :seminar-id="seminarId">
+          </student-mobile-seminar-finished>
+
         </div>
       </div>
     </div>
@@ -59,7 +74,7 @@
           //test
           this.seminar = {
             roundOrder:'2',topic:'业务流程分析',order:'2',
-            intro:'界面导航图和界面原型设计',status:'已结束',
+            intro:'界面导航图和界面原型设计',status:'未开始',
             signUpStartTime:'10.1.2018 12:00',signUpEndTime:'10.7.2018 12:00'}
           this.seminar.id = this.seminarId
         },

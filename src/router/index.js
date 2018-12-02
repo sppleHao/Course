@@ -13,6 +13,7 @@ import StudentMobileCourseIndex from '@/pages/studentMobile/course/CourseIndex'
 import StudentMobileSeminarSelect from '@/pages/studentMobile/seminar/Seminarselect'
 import StudentMobileSeminarIndex from '@/pages/studentMobile/seminar/SeminarIndex'
 import StudentMobileSeminarOperations from '@/pages/studentMobile/seminar/operation/Operations'
+import StudentMobileSeminarPresenting from '@/pages/studentMobile/seminar/operation/Presenting'
 
 Vue.use(Router)
 
@@ -71,9 +72,15 @@ export default new Router({
       props:true
     },
     {
-      path:'/studentMobile/course/:courseId/class/:classId/seminar/:seminarId/:operation',
+      path:'/studentMobile/course/:courseId/class/:classId/seminar/:seminarId/operation/:operation',
       name:'StudentMobileSeminarOperations',
       component:StudentMobileSeminarOperations,
+      props:true
+    },
+    {
+      path:'/studentMobile/course/:courseId/class/:classId/seminar/:seminarId/presenting',
+      name:'StudentMobileSeminarPresenting',
+      component:StudentMobileSeminarPresenting,
       props:true
     }
   ]

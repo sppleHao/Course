@@ -44,6 +44,9 @@
       },
       components: {StudentMobileAccountSettings, StudentMobileCourseList, StudentMobileHeader},
       created(){
+        //获得selected
+        this.selected = this.$route.query.selected
+
         //获得userId
         let userId = sessionStorage.getItem('userId')
 

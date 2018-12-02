@@ -2,6 +2,9 @@
     <div>
       <mt-button type="primary" @click="showModal">提交PPT</mt-button>
       <mt-button type="primary" @click="showModal">提交书面报告</mt-button>
+      <router-link :to="{name:'StudentMobileSeminarOperations',params:{courseId,seminarId,operation:'cancelSignUp'}}">
+        <mt-button type="primary">报名情况</mt-button>
+      </router-link>
       <mt-popup v-model="popupVisible">
         <div>
           <mt-button @click="uploadFile">上传文件</mt-button>
@@ -18,6 +21,7 @@
     import axios from 'axios'
     export default {
         name: "StudentMobileSeminarSignUp",
+        props:['courseId','seminarId'],
         data() {
           return{
             popupVisible:false,
@@ -53,9 +57,7 @@
             // }).catch((error)=>{
             //   console.log(error)
             // })
-
-
-          }
+          },
         }
     }
 </script>

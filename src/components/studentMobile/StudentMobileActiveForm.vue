@@ -47,7 +47,7 @@
             });
 
             //跳转
-            this.$router.push({name:'StudentMobileAccountIndex'})
+            this.$router.push({name:'StudentMobileAccountIndex',query:{selected:'我的'}})
           }
         }
     }
