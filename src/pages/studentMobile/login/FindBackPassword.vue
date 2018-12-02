@@ -4,17 +4,17 @@
       <student-mobile-header head-title="找回密码"></student-mobile-header>
     </div>
     <div class="container">
-      <new-password-form :email="null" ></new-password-form>
+      <student-mobile-new-password-form :email="null" ></student-mobile-new-password-form>
     </div>
   </div>
 </template>
 
 <script>
     import StudentMobileHeader from "../../../components/studentMobile/StudentMobileHeader";
-    import NewPasswordForm from "../../../components/studentMobile/NewPasswordForm";
+    import StudentMobileNewPasswordForm from "../../../components/studentMobile/StudentMobileNewPasswordForm";
     export default {
         name: "FindBackPassword",
-      components: {NewPasswordForm, StudentMobileHeader}
+      components: {StudentMobileNewPasswordForm, StudentMobileHeader}
     }
 </script>
 

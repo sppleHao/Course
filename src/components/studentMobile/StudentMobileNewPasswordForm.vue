@@ -13,7 +13,7 @@
 
 <script>
     export default {
-        name: "NewPasswordForm",
+        name: "StudentMobileNewPasswordForm",
         data () {
           return {
             isSend:false,
