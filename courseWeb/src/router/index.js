@@ -33,7 +33,7 @@ export default new Router({
       component: teacherMobilePauseSeminar
     },
     {
-      path: '/seminar/MTprocessingSeminar',
+      path: '/seminar/MTprocessingSeminar/:id',
       name: 'teacherMobileProcessingSeminar',
       component: teacherMobileProcessingSeminar
     },

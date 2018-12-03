@@ -45,7 +45,7 @@
         <button class="button2"><span>下组展示</span></button>
       </div>
     </div>
-    <el-dialog :visible.sync="pauseDialogVisible" :show-close="false" top="40%" width="60%" center="true">
+    <el-dialog :visible.sync="pauseDialogVisible" :show-close="false" top="40%" width="60%" center>
       <div slot="title" style="color:red">
         <Icon type="md-information-circle" size="35"/>
       </div>
@@ -60,11 +60,11 @@
       </div>
     </el-dialog>
 
-    <el-dialog :visible.sync="endDialogVisible" :show-close="false" top="40%" width="60%" center="true">
+    <el-dialog :visible.sync="endDialogVisible" :show-close="false" top="40%" width="60%" center>
       <div slot="title" style="color:red">
         <Icon type="md-information-circle" size="35"/>
       </div>
-      <div style="text-align: center;font-size: 18px;color: #000;">
+      <div style="text-align:center ;font-size: 18px;color: #000;">
         <p>讨论课已结束</p>
         <p>请设置书面报告截止时间</p>
         <DatePicker type="datetime" placeholder="选择日期和时间" style="width: 100%;margin-top: 5%" size="small"></DatePicker>
@@ -184,8 +184,11 @@
     },
     methods:{
       confirmEnd:function(){
-
       }
+    },
+    created(){
+      let _this=this;
+      _this.confirmEnd();
     }
   }
 </script>

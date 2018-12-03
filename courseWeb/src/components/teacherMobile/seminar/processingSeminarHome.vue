@@ -16,7 +16,7 @@
         <span class="span1">课程情况：</span>
         <span class="span2">{{situation}}<a href="../../" style="color:#8BC34A;margin-left: 12%;text-decoration: underline ">查看信息</a></span>
       </div>
-      <button class="button" onclick="window.location.href='../../seminar/MTprocessingSeminar'"><span>进入讨论课</span></button>
+      <button class="button" @click="enter(id)"><span>进入讨论课</span></button>
     </div>
   </div>
 </template>
@@ -28,21 +28,35 @@
           return {
             name:'OOAD',
             round:'第二轮',
-            theme:'领域模型',
-            number:'1',
-            requirement:'界面导航图和所有界面原型设计课堂讨论每个小组15分钟',
-            situation:'正在进行',
+            id:'1',
+            theme:'',
+            number:'',
+            requirement:'',
+            situation:'',
             current_class:'2016（2）'
           }
       },
-      methods:{
-          //加载当前讨论课信息
-          getSeminarInfo:function(){
-            let _this=this;
-            this.$axios({
-
-            })
-          }
+      methods: {
+        //加载当前讨论课信息
+        getSeminarInfo: function () {
+          let _this = this;
+          const seminarId = _this.$data.id;
+          this.$axios({
+            methods: 'get',
+            url: '/seminars/'+seminarId+'/subinfo'
+          }).then(function(response){
+            _this.$data.theme=response.data.seminarTopic;
+            _this.$data.number=response.data.seminarOrder;
+            _this.$data.requirement=response.data.seminarIntro;
+            _this.$data.situation=response.data.seminarState;
+          })
+        },
+        enter:function(id){
+          this.$router.push({
+            name:'teacherMobileProcessingSeminar',
+            params:{id}
+          })
+        }
       },
       created(){
           this.getSeminarInfo();
