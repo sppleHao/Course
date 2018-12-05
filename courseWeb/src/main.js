@@ -8,12 +8,16 @@ import iView from 'iview'
 import 'iview/dist/styles/iview.css'
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
+import downMenu from './components/teacherMobile/myComponents/downMenu/downMenu.js'
+import openAndCloseMenu from './components/teacherMobile/myComponents/openAndCloseMenu/openAndCloseMenu.js'
 
 Vue.config.productionTip = false
 Vue.prototype.$http = axios
 Vue.prototype.$axios = axios
+Vue.use(downMenu)
 Vue.use(iView)
 Vue.use(ElementUI)
+Vue.use(openAndCloseMenu)
 
 /* eslint-disable no-new */
 new Vue({

@@ -71,7 +71,7 @@
 
   .root{
     height: 100%;
-    width:102%;
+    width:100%;
     background: #eee;
     border-right:2px solid transparent;
   }

@@ -5,15 +5,14 @@
     </div>
     <div class="main">
       <div class="input-div">
-        <input class="input" placeholder="学号/教工号"/>
+        <input class="input" type="text" v-model="userNumber" placeholder="学号/教工号"/>
       </div>
       <div class="input-div">
-        <input class="input" placeholder="登录密码"/>
-        <i style="display: block;float: right;margin-right: 3%"><Icon type="ios-eye-outline" size="25"/></i>
+        <input class="input" id="password" type="password" v-model="userPassword" placeholder="登录密码"/>
       </div>
-      <button class="button"><span>登录</span></button>
+      <i style="display: block;float: right;margin-right: 3%" @click="showPassword"><Icon type="ios-eye-outline" size="25"/></i>
+      <button class="button" @click="login"><span>登录</span></button>
       <div class="a-dev"><a href="../accountAndSettings/MfindPassword" style="float:right;margin-right: 3%;">忘记密码</a></div>
-
       <div class="foot">初始登录默认密码为123456</div>
     </div>
   </div>
@@ -21,7 +20,58 @@
 
 <script>
     export default {
-        name: "login"
+      name: "login",
+      data() {
+        return{
+          userNumber:'',
+          userPassword:'',
+        }
+      },
+      methods: {
+        showPassword:function(){
+          if (document.getElementById("password").type === "password") {
+            document.getElementById("password").type= "text";
+          }
+          else {
+            document.getElementById("password").type = "password";
+          }
+        },
+
+        login:function(){
+          let _this=this;
+          const name = _this.$data.userNumber;
+          const password = _this.$data.userPassword;
+          this.$axios({
+            method:'get',
+            url:'/users/login?userid='+name+'&password='+password,
+          }).then(function(response){
+            if(response.data===true) {
+              _this.$message({
+                message: '登陆成功',
+                type: 'success',
+              });
+              _this.enter(name);
+            }
+            else{
+              _this.$data.userNumber='';
+              _this.$data.userPassword='';
+              _this.$message({
+                message:'账号或密码错误',
+                type:'warning',
+              })
+            }
+          }).catch(function(error){
+            console.log(error.response);
+          })
+        },
+
+        enter:function(name){
+          this.$router.push({
+            name:'teacherMobileProfile',
+            params:{name}
+          });
+        }
+      }
     }
 </script>
 
@@ -30,10 +80,10 @@
     text-align: center;
     background: #f2f2f2;
     width:100%;
-    height: 8%;
+    height: 10%;
     border:1px solid transparent;
     font-family:思源黑体;
-    font-size: 19px;
+    font-size: 2.5vmax;
     color:#000;
     letter-spacing:1px;
     display: flex;
@@ -53,21 +103,28 @@
     width: 100%;
   }
   .input-div{
-    height: 9%;
+    height: 10%;
     width: 100%;
     margin-top: 4%;
+    background:#F2F2F2;
   }
   .input{
     background-color:#F2F2F2;
     border:0;
     height:100%;
     width:100%;
+    padding:0 7% 0 7%;
+    font-size: 2.5vmax;
   }
 
   .input::-webkit-input-placeholder, textarea::-webkit-input-placeholder { /* WebKit*/
     color:#CCCCCC;
-    font-size:16px;
-    padding: 5%;
+    font-size:2vmax;
+
+
+
+
+
   }
   .button {
     display: inline-block;
@@ -75,7 +132,7 @@
     border: none;
     color: #FFFFFF;
     text-align: center;
-    font-size: 20px;
+    font-size: 2.3vmax;
     /*padding: 20px;*/
     height: 9%;
     width: 100%;
@@ -87,7 +144,7 @@
     height: 5%
   }
   a{
-    font-size: 14px;
+    font-size: 1.8vmax;
     font-family:思源黑体;
   }
   .foot{

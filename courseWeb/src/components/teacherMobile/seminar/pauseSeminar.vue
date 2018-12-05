@@ -1,11 +1,12 @@
 <template>
-  <div class="root">
+  <div class="root" @click="closeMenu">
     <div class="head">
       <span><Icon type="ios-arrow-back" size="large"/></span>
       <span style="width:85%">{{name}}-讨论课</span>
-      <span><Icon type="md-add" size="large"/></span>
+      <OCMenu></OCMenu>
     </div>
     <div class="main">
+      <down-menu></down-menu>
       <div class="current-class">{{current_class}}</div>
       <div style="margin-left:5%;border-bottom:solid #E3E3E3 1px;width:90%;background: #fff"></div>
       <div class="white-div"><span class="span1">主题：</span><span class="span2">{{theme}}</span></div>
@@ -34,6 +35,13 @@
       }
     },
     methods:{
+      closeMenu: function () {
+        const menu = document.getElementById("show");
+        if (document.getElementById("show").style.display === "block") {
+          if (!menu.contains(event.target)) document.getElementById("show").style.display = "none";
+        }
+      },
+
     }
   }
 </script>
@@ -46,7 +54,7 @@
     height: 8%;
     border:1px solid transparent;
     font-family:思源黑体;
-    font-size: 19px;
+    font-size: 2.5vmax;
     color:#000;
     letter-spacing:1px;
     display: flex;
@@ -71,7 +79,7 @@
     border: none;
     color: #FFFFFF;
     text-align: center;
-    font-size: 20px;
+    font-size: 2.5vmax;
     /*padding: 20px;*/
     height: 9%;
     width: 100%;
@@ -93,14 +101,14 @@
   }
   .span1{
     font-family:思源黑体;
-    font-size:16px;
+    font-size: 2vmax;
     margin-left: 7%;
     color: black;
     width: 21%;
   }
   .span2{
     font-family:思源黑体;
-    font-size:16px;
+    font-size: 2vmax;
     color: black;
     width: 66%;
     display: flex;
@@ -108,7 +116,7 @@
   }
   .P-span2{
     font-family:思源黑体;
-    font-size:16px;
+    font-size: 2vmax;
     color: red;
     width: 66%;
     display: flex;
@@ -121,7 +129,7 @@
     display: flex;
     /*实现垂直居中*/
     align-items: center;
-    font-size: 15px;
+    font-size: 2vmax;
     color:#000;
   }
 </style>

@@ -6,6 +6,7 @@ import teacherMobileFindPassword from '@/components/teacherMobile/accountAndSett
 import teacherMobileProcessingSeminarHome from '@/components/teacherMobile/seminar/processingSeminarHome'
 import teacherMobilePauseSeminar from '@/components/teacherMobile/seminar/pauseSeminar'
 import teacherMobileProcessingSeminar from '@/components/teacherMobile/seminar/processingSeminar'
+import teacherMobileProfile from '@/components/teacherMobile/loginAndActivateAndHome/profile'
 
 Vue.use(Router)
 
@@ -13,6 +14,8 @@ export default new Router({
   mode:'history',
   routes: [
     {
+      //PC端路由
+      //教师端
       path: '/MTlogin',
       name: 'teacherMobileLogin',
       component: teacherMobileLogin
@@ -37,8 +40,22 @@ export default new Router({
       name: 'teacherMobileProcessingSeminar',
       component: teacherMobileProcessingSeminar
     },
+    {
+      path: '/users/MTprofile/:name',
+      name: 'teacherMobileProfile',
+      component: teacherMobileProfile
+    },
+    //学生端
 
 
+    //PC端路由
+    //教师端
+    {
+      path:'/PCTlogin',
+      name:'teacherPCLogin',
+      component:teacherPCLogin
+    },
+    //学生端
 
   ]
 })
