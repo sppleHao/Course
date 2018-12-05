@@ -73,7 +73,7 @@
               isTeamSignUp:'',
               presentation:'',
               getSeminarUrl:'',//'http://119.29.24.35:8000/seminars/1'
-              getTeamPresentation:''
+              getTeamPresentationUrl:''
             }
         },
         created() {
@@ -85,7 +85,7 @@
           let teamId = sessionStorage.getItem('teamId')
 
           //通过teamId和seminarId获得讨论课是否报名
-          // this.checkTeamSignUp(this.checkTeamSignUpUrl,{teamId:teamId,seminarId:seminarId})
+          // this.getTeamPresentation(this.getTeamPresentationUrl,{teamId:teamId,seminarId:seminarId})
 
           //test
           this.seminar = {
