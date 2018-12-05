@@ -41,7 +41,7 @@
             user:'',
             courses:'',
             //todo
-            getCoursesUrl:'',
+            getCoursesUrl:'http://119.29.24.35:8000/courses/seminars',
             getAccountInformationUrl:''
           }
       },
@@ -54,12 +54,12 @@
         let userId = sessionStorage.getItem('userId')
 
         //通过userId查找用户拥有的所有课程
-        // this.getCourses(this.getCoursesUrl,{userId:userId})
+        this.getCourses(this.getCoursesUrl,{userId:userId})
 
         //test
-        this.courses = [
-          {courseId: '1', courseName: 'OOAD'},
-          {courseId: '2', courseName: 'J2EE'}]
+        // this.courses = [
+        //   {courseId: '1', courseName: 'OOAD'},
+        //   {courseId: '2', courseName: 'J2EE'}]
 
         //通过userId查找用户的信息
         // this.getAccountInformation(this.getAccountInformationUrl,{userId:userId})

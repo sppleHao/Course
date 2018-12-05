@@ -43,7 +43,7 @@
           sessionStorage.setItem('teamId',this.teamId)
 
 
-          //通过teamId和courseId获得队伍所在班级
+          //通过teamId和courseId获得队伍所在class
           // this.getClass(this.getClassUrl,{teamId:this.teamId,courseId:this.courseId})
 
           //test

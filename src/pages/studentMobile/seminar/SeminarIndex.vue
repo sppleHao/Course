@@ -64,13 +64,18 @@
         props:['courseId','seminarId'],
         data () {
             return {
-              headTitle:this.$route.query.courseName+'-讨论课',
+              headTitle:this.$route.query.courseName+'-'+this.$route.query.seminarTopic,
+              isTeamSignUp:false,
               seminar:'',
-              isTeamSignUp:'',
               presentation:'',
               getSeminarUrl:'http://119.29.24.35:8000/seminars/1',
-              getTeamPresentationUrl:''
+              getTeamPresentationUrl:'http://119.29.24.35:8000/seminars/1/cclasses/1/presentations'
             }
+        },
+        computed:{
+          // isTeamSignUp:function () {
+          //   this.getTeamPresentation(this.getTeamPresentationUrl)
+          // }
         },
         created() {
           let seminarId = this.seminarId
@@ -78,25 +83,26 @@
           //通过seminarId获得讨论课的信息
           this.getSeminar(this.getSeminarUrl,{seminarId:seminarId})
 
-          let teamId = sessionStorage.getItem('teamId')
+          let teamId = 1 //sessionStorage.getItem('teamId')
 
           //通过teamId和seminarId获得讨论课是否报名
-          // this.getTeamPresentation(this.getTeamPresentationUrl,{teamId:teamId,seminarId:seminarId})
+          this.getTeamPresentation(this.getTeamPresentationUrl,{teamId:teamId,seminarId:seminarId})
+
+
 
           //test
-          this.seminar = {
-            seminarId:this.seminarId,
-            roundOrder:'2',
-            seminarTopic:'业务流程分析',
-            seminarOrder:'2',
-            seminarIntro:'界面导航图和界面原型设计',
-            seminarState:'未开始',
-            signUpStartTime:'10.1.2018 12:00',
-            signUpEndTime:'10.7.2018 12:00',
-            reportDDL:'10.14.2018 12:00'
-          }
+          // this.seminar = {
+          //   seminarId:this.seminarId,
+          //   roundOrder:'2',
+          //   seminarTopic:'业务流程分析',
+          //   seminarOrder:'2',
+          //   seminarIntro:'界面导航图和界面原型设计',
+          //   seminarState:'未开始',
+          //   signUpStartTime:'10.1.2018 12:00',
+          //   signUpEndTime:'10.7.2018 12:00',
+          //   reportDDL:'10.14.2018 12:00'
+          // }
 
-          this.isTeamSignUp=false
         },
         methods:{
           //通过seminarId从后端获得讨论课的信息
@@ -118,32 +124,39 @@
 
                 responseData = res.data
                 this.seminar = responseData
+
               })
               .catch((err)=>{
                 console.log(err)
               })
           },
-          //通过teamId和seminarId查找是否存在presentation
+          //通过seminarId和classId查找所有的presentations，并筛选
           getTeamPresentation:function (url,params) {
             axios.get(url,{params:{params}})
               .then((res)=>{
 
-                let responseData = {
+                let responseData = [{
+                  teamId: 1,
+                  teamNumber: "2-3",
                   reportFileName:'',
                   reportFileUrl:'',
                   preFileName:'',
                   preFileUrl:''
-                }
+                }]
 
-                responseData = res.data
+                responseData = res.data.myPresentations
 
-                this.presentation = responseData
+                let teamId = 1;
 
-                this.isTeamSignUp = true
+                responseData.forEach(presentation=>{
+                  if (presentation.teamId==teamId){
+                    this.isTeamSignUp = true
+                    console.log(this.isTeamSignUp)
+                  }
+                })
               })
               .catch(err=>{
-                //todo handle error
-                this.isTeamSignUp = false
+
               })
           }
         }

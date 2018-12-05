@@ -41,6 +41,7 @@
         isScore:false,
         isCancelSignUp:false,
         getTeamNumLimitUrl:'',
+        getPresentationsUrl:''
       }
     },
     created(){
@@ -78,41 +79,43 @@
       //test
       this.teamNumLimit=6
 
-      let classId = sessionStorage.getItem('classId')
+      let classId = 1;// sessionStorage.getItem('classId')
       // 通过seminarId和classId获得已经报名的队伍
 
-
+      this.getPresentations('http://119.29.24.35:8000/seminars/1/cclasses/1/presentations')
 
       //test
-      this.presentationTeams = [
-        {preOrder:'1',teamId:'3',teamName:'1-3',preFileUrl:'localhost:3000/preFileUrl/3',preFileName:'1-3.pptx',reportFileUrl:'localhost:3000/reportFileUrl/3',reportFileName:'1-3.pdf',preScore:'1'},
-        // {preOrder:'2',teamId:'5',teamName:'1-5',preFileUrl:'localhost:3000/preFileUrl/1',preFileName:'',reportFileUrl:'localhost:3000/reportFileUrl/1',reportFileName:'',preScore:'2'},
-        {preOrder:'3',teamId:'2',teamName:'1-2',preFileUrl:'',preFileName:'',reportFileUrl:'localhost:3000/reportFileUrl/1',reportFileName:'1-3.pdf',preScore:'3'},
-        {preOrder:'4',teamId:'1',teamName:'1-1',preFileUrl:'localhost:3000/preFileUrl/1',preFileName:'1-1.pptx',reportFileUrl:'',reportFileName:'',preScore:'2'},
-        {preOrder:'5',teamId:'6',teamName:'1-6',preFileUrl:'localhost:3000/preFileUrl/6',preFileName:'1-6.pptx',reportFileUrl:'localhost:3000/reportFileUrl/6',reportFileName:'1-6.pdf',preScore:'5'},
-        {preOrder:'6',teamId:'10',teamName:'1-10',preFileUrl:'',preFileName:'',reportFileUrl:'',reportFileName:'',preScore:'4'},
-      ]
+      // this.presentationTeams = [
+      //   {preOrder:'1',teamId:'3',teamNumber:'1-3',preFileUrl:'localhost:3000/preFileUrl/3',preFileName:'1-3.pptx',reportFileUrl:'localhost:3000/reportFileUrl/3',reportFileName:'1-3.pdf',preScore:'1'},
+      //   // {preOrder:'2',teamId:'5',teamNum:'1-5',preFileUrl:'localhost:3000/preFileUrl/1',preFileName:'',reportFileUrl:'localhost:3000/reportFileUrl/1',reportFileName:'',preScore:'2'},
+      //   {preOrder:'3',teamId:'2',teamNumber:'1-2',preFileUrl:'',preFileName:'',reportFileUrl:'localhost:3000/reportFileUrl/1',reportFileName:'1-3.pdf',preScore:'3'},
+      //   {preOrder:'4',teamId:'1',teamNumber:'1-1',preFileUrl:'localhost:3000/preFileUrl/1',preFileName:'1-1.pptx',reportFileUrl:'',reportFileName:'',preScore:'2'},
+      //   {preOrder:'5',teamId:'6',teamNumber:'1-6',preFileUrl:'localhost:3000/preFileUrl/6',preFileName:'1-6.pptx',reportFileUrl:'localhost:3000/reportFileUrl/6',reportFileName:'1-6.pdf',preScore:'5'},
+      //   {preOrder:'6',teamId:'10',teamNumber:'1-10',preFileUrl:'',preFileName:'',reportFileUrl:'',reportFileName:'',preScore:'4'},
+      // ]
     },
     computed:{
       //获得排好序的teams并填补空位
       teamsInOrder: function () {
         let t = []
-        this.presentationTeams.forEach((team)=>{
-          t[team.preOrder-1] = team
-        })
-        for (let i = 0;i<this.teamNumLimit;i++){
-          if (!t[i]){
-            let team = {
-              teamName:'',
-              tamId:'',
-              preOrder:`${i+1}`,
-              preFileUrl:'',
-              preFileName:'',
-              reportFileUrl:'',
-              reportFileName:'',
-              preScore:''
+        if (this.presentationTeams) {
+          this.presentationTeams.forEach((team)=>{
+            t[team.preOrder-1] = team
+          })
+          for (let i = 0;i<this.teamNumLimit;i++){
+            if (!t[i]){
+              let team = {
+                teamNumber:'',
+                tamId:'',
+                preOrder:`${i+1}`,
+                preFileUrl:'',
+                preFileName:'',
+                // reportFileUrl:'',
+                // reportFileName:'',
+                preScore:''
+              }
+              t[i] = team
             }
-            t[i] = team
           }
         }
         return t
@@ -137,12 +140,12 @@
             console.log(err)
           })
       },
-      getSignUpTeams:function (url,params) {
+      getPresentations:function (url,params) {
         axios.get(url,params)
           .then(res=>{
 
-            let responseData = {
-              teamName:'',
+            let responseData = [{
+              teamNumber:'',
               tamId:'',
               preOrder:'',
               preFileUrl:'',
@@ -150,11 +153,16 @@
               reportFileUrl:'',
               reportFileName:'',
               preScore:''
-            }
+            }]
 
-            responseData = res.data
+
+            responseData = res.data.myPresentations
 
             this.presentationTeams = responseData
+
+            console.log(responseData)
+
+
 
           })
           .catch(err=>{

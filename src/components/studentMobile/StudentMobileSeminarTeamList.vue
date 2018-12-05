@@ -3,7 +3,7 @@
     <div v-for="team in teams" :key="team.teamId">
 
       <!--如果是本组-->
-      <mt-cell class="is-my-team" v-if="team.teamId==teamId" :title="`第${team.preOrder}组`" :label="`${team.teamName}(本组)`">
+      <mt-cell class="is-my-team" v-if="team.teamId==teamId" :title="`第${team.preOrder}组`" :label="`${team.teamNumber}(本组)`">
         <span class="is-my-team" v-if="isScore">
           {{team.preScore}}
         </span>
@@ -31,7 +31,7 @@
 
 
       <!--非本组且不为空-->
-      <mt-cell v-else-if="team.teamId" :title="`第${team.preOrder}组`" :label="team.teamName">
+      <mt-cell v-else-if="team.teamId" :title="`第${team.preOrder}组`" :label="team.teamNumber">
 
         <!--显示成绩-->
         <span v-if="isScore">

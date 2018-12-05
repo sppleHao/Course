@@ -49,10 +49,11 @@ export default {
       selected:'全部',
       //所有讨论课
       seminars:'',
+      rounds:'',
       //已报名讨论课
       signUpSeminars:'',
       courseName: this.$route.query.courseName,
-      getSeminarsUrl:'',
+      getSeminarsUrl:'http://119.29.24.35:8000/courses/1/seminars',
       getSignUpSeminarsUrl:''
     }
   },
@@ -60,65 +61,75 @@ export default {
     headTitle:function () {
       return this.courseName +'-'+this.$route.query.className
     },
-    rounds: function () {
-      return this.classifySeminarInRound(this.seminars)
-    },
+    // rounds: function () {
+    //   //return this.classifySeminarInRound(this.seminars)
+    // },
     roundsWithSignUp: function () {
-      return this.classifySeminarInRound(this.signUpSeminars)
+      // return this.classifySeminarInRound(this.signUpSeminars)
     }
   },
   methods:{
-    classifySeminarInRound:function (seminars) {
-      let r = []
-      seminars.forEach((seminar) => {
-        if (!r[seminar.roundOrder - 1]) {
-          var round = {}
-          round.roundOrder = seminar.roundOrder
-          round.seminars = []
-          round.seminars.push(seminar)
-          r[seminar.roundOrder - 1] = round
-        } else {
-          r[seminar.roundOrder - 1].seminars.push(seminar)
-        }
-      })
-      return r
-    },
-    //获得所有讨论课
-    getSeminars: function (url,params) {
+    // classifySeminarInRound:function (seminars) {
+    //   let r = []
+    //   seminars.forEach((seminar) => {
+    //     if (!r[seminar.roundOrder - 1]) {
+    //       var round = {}
+    //       round.roundOrder = seminar.roundOrder
+    //       round.seminars = []
+    //       round.seminars.push(seminar)
+    //       r[seminar.roundOrder - 1] = round
+    //     } else {
+    //       r[seminar.roundOrder - 1].seminars.push(seminar)
+    //     }
+    //   })
+    //   return r
+    // },
+    // //获得所有讨论课
+    // getSeminars: function (url,params) {
+    //   axios.get(url,{params:{params}})
+    //     .then(res=>{
+    //
+    //       let responseData = {
+    //         seminarId:'',
+    //         seminarTopic:'',
+    //         roundOrder:''
+    //       }
+    //
+    //       responseData = res.data
+    //
+    //       this.seminars = responseData
+    //     })
+    //     .catch(err=>{
+    //       console.log(err)
+    //     })
+    // },
+    // //获得所有已报名的讨论课
+    // getSignUpSeminars:function (url,params) {
+    //   axios.get(url,{params:{params}})
+    //     .then(res=>{
+    //
+    //       let responseData = {
+    //         seminarId:'',
+    //         seminarTopic:'',
+    //         roundOrder:''
+    //       }
+    //
+    //       responseData = res.data
+    //
+    //       this.signUpSeminars = responseData
+    //     })
+    //     .catch(err=>{
+    //       console.log(err)
+    //     })
+    // }
+    getSeminars:function (url,params) {
       axios.get(url,{params:{params}})
         .then(res=>{
-
-          let responseData = {
-            seminarId:'',
-            seminarTopic:'',
-            roundOrder:''
-          }
-
-          responseData = res.data
-
-          this.seminars = responseData
+          console.log(res.data.myRounds)
+          this.rounds =  res.data.myRounds
         })
         .catch(err=>{
-          console.log(err)
-        })
-    },
-    //获得所有已报名的讨论课
-    getSignUpSeminars:function (url,params) {
-      axios.get(url,{params:{params}})
-        .then(res=>{
 
-          let responseData = {
-            seminarId:'',
-            seminarTopic:'',
-            roundOrder:''
-          }
-
-          responseData = res.data
-
-          this.signUpSeminars = responseData
-        })
-        .catch(err=>{
-          console.log(err)
         })
     }
   },
@@ -127,13 +138,13 @@ export default {
     let courseId = sessionStorage.getItem('courseId')
 
     //通过courseId获得该课程所有讨论课
-    // this.getSeminars(this.getSeminarsUrl,{courseId:courseId})
+    this.getSeminars(this.getSeminarsUrl,{courseId:courseId})
 
     //test
-    this.seminars= [{seminarId:'1',seminarTopic: '业务流程分析', roundOrder: 1},
-      {seminarId:'2',seminarTopic: '领域模型设计', roundOrder: 1},
-      {seminarId:'3',seminarTopic: '代码检查', roundOrder: 2},
-      {seminarId:'4',seminarTopic: '对象模型设计', roundOrder: 2}]
+    // this.seminars= [{seminarId:'1',seminarTopic: '业务流程分析', roundOrder: 1},
+    //   {seminarId:'2',seminarTopic: '领域模型设计', roundOrder: 1},
+    //   {seminarId:'3',seminarTopic: '代码检查', roundOrder: 2},
+    //   {seminarId:'4',seminarTopic: '对象模型设计', roundOrder: 2}]
 
     //获得teamId
 
@@ -143,8 +154,8 @@ export default {
     // this.getSignUpSeminars(this.getSignUpSeminarsUrl,{courseId:courseId,teamId:teamId})
 
     //test
-    this.signUpSeminars = [{seminarId:'1',seminarTopic: '业务流程分析', roundOrder: 1},
-      {seminarId:'3',seminarTopic: '代码检查', roundOrder: 2}]
+    // this.signUpSeminars = [{seminarId:'1',seminarTopic: '业务流程分析', roundOrder: 1},
+    //   {seminarId:'3',seminarTopic: '代码检查', roundOrder: 2}]
 
   },
   props:['courseId','classId','teamId']
