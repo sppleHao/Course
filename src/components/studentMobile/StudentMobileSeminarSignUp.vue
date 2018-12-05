@@ -1,7 +1,7 @@
 <template>
     <div>
-      <mt-button type="primary" @click="showModal">提交PPT</mt-button>
-      <mt-button type="primary" @click="showModal">提交书面报告</mt-button>
+      <mt-button type="primary" @click="showModal">PPT提交</mt-button>
+      <mt-button type="primary" @click="showModal">书面报告提交</mt-button>
       <router-link :to="{name:'StudentMobileSeminarOperations',params:{courseId,seminarId,operation:'cancelSignUp'}}">
         <mt-button type="primary">报名情况</mt-button>
       </router-link>

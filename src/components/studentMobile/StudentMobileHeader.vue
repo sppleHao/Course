@@ -1,5 +1,5 @@
 <template>
-  <mt-header fixed v-bind:title="headTitle">
+  <mt-header v-bind:title="headTitle">
     <mt-button icon="back" @click="pageBack" slot="left"></mt-button>
     <mt-button icon="more" slot="right"></mt-button>
   </mt-header>

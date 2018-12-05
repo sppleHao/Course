@@ -4,9 +4,9 @@
       <mt-header  :title="`第${round.roundOrder}轮`">
       </mt-header>
       <mt-cell v-for="seminar in round.seminars" is-link
-               :key="seminar.id"
-               :title="seminar.topic"
-               :to="{name:'StudentMobileSeminarIndex',params:{courseId,classId,seminarId:seminar.id},query:{courseName}}"></mt-cell>
+               :key="seminar.seminarId"
+               :title="seminar.seminarTopic"
+               :to="{name:'StudentMobileSeminarIndex',params:{courseId,classId,seminarId:seminar.seminarId},query:{courseName}}"></mt-cell>
     </div>
   </div>
 </template>

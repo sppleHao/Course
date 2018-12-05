@@ -4,6 +4,7 @@
       <student-mobile-header :head-title="headTitle"></student-mobile-header>
     </div>
     <div class="container">
+      <!--操作-->
       <div v-if="isSignUp">
         <student-mobile-seminar-team-list :teams="teamsInOrder" is-sign-up="true"></student-mobile-seminar-team-list>
       </div>
@@ -32,17 +33,18 @@
     data () {
       return {
         headTitle:'',
-        teams:null,
+        presentationTeams:null,
         teamNumLimit:null,
         isSignUp:false,
         isPpt:false,
         isReport:false,
         isScore:false,
-        isCancelSignUp:false
+        isCancelSignUp:false,
+        getTeamNumLimitUrl:'',
       }
     },
     created(){
-      //确定操作
+      //通过参数确定操作
       switch (this.$route.params.operation){
         case 'ppt':{
           this.isPpt=true
@@ -72,31 +74,45 @@
       }
 
       //通过seminarId获得队伍数量限制
-
+      // this.getTeamNumLimit(this.getTeamNumLimitUrl,{seminarId:this.seminarId});
       //test
       this.teamNumLimit=6
 
+      let classId = sessionStorage.getItem('classId')
       // 通过seminarId和classId获得已经报名的队伍
+
+
+
       //test
-      this.teams = [
-        {preOrder:'1',id:'3',name:'1-3',preFileUrl:'localhost:3000/preFileUrl/1',reportFileUrl:'localhost:3000/reportFileUrl/1',preScore:'1'},
-        // {preOrder:'2',id:'5',name:'1-5',preFileUrl:'localhost:3000/preFileUrl/1',reportFileUrl:'localhost:3000/reportFileUrl/1',preScore:'2'},
-        {preOrder:'3',id:'2',name:'1-2',preFileUrl:'localhost:3000/preFileUrl/1',reportFileUrl:'localhost:3000/reportFileUrl/1',preScore:'3'},
-        {preOrder:'4',id:'1',name:'1-1',preFileUrl:'localhost:3000/preFileUrl/1',reportFileUrl:'localhost:3000/reportFileUrl/1',preScore:'2'},
-        {preOrder:'5',id:'6',name:'1-6',preFileUrl:'localhost:3000/preFileUrl/1',reportFileUrl:'localhost:3000/reportFileUrl/1',preScore:'5'},
-        {preOrder:'6',id:'10',name:'1-10',preFileUrl:'localhost:3000/preFileUrl/1',reportFileUrl:'localhost:3000/reportFileUrl/1',preScore:'4'},
+      this.presentationTeams = [
+        {preOrder:'1',teamId:'3',teamName:'1-3',preFileUrl:'localhost:3000/preFileUrl/1',preFileName:'',reportFileUrl:'localhost:3000/reportFileUrl/1',reportFileName:'',preScore:'1'},
+        // {preOrder:'2',teamId:'5',teamName:'1-5',preFileUrl:'localhost:3000/preFileUrl/1',preFileName:'',reportFileUrl:'localhost:3000/reportFileUrl/1',reportFileName:'',preScore:'2'},
+        {preOrder:'3',teamId:'2',teamName:'1-2',preFileUrl:'localhost:3000/preFileUrl/1',preFileName:'',reportFileUrl:'localhost:3000/reportFileUrl/1',reportFileName:'',preScore:'3'},
+        {preOrder:'4',teamId:'1',teamName:'1-1',preFileUrl:'localhost:3000/preFileUrl/1',preFileName:'',reportFileUrl:'localhost:3000/reportFileUrl/1',reportFileName:'',preScore:'2'},
+        {preOrder:'5',teamId:'6',teamName:'1-6',preFileUrl:'localhost:3000/preFileUrl/1',preFileName:'',reportFileUrl:'localhost:3000/reportFileUrl/1',reportFileName:'',preScore:'5'},
+        {preOrder:'6',teamId:'10',teamName:'1-10',preFileUrl:'localhost:3000/preFileUrl/1',preFileName:'',reportFileUrl:'localhost:3000/reportFileUrl/1',reportFileName:'',preScore:'4'},
       ]
     },
     computed:{
       //获得排好序的teams并填补空位
       teamsInOrder: function () {
         let t = []
-        this.teams.forEach((team)=>{
+        this.presentationTeams.forEach((team)=>{
           t[team.preOrder-1] = team
         })
         for (let i = 0;i<this.teamNumLimit;i++){
           if (!t[i]){
-            t[i] = {preOrder:`${i+1}`,id:null,name:'',preFileUrl:null,reportFileUrl:null,preScore:null}
+            let team = {
+              teamName:'',
+              tamId:'',
+              preOrder:`${i+1}`,
+              preFileUrl:'',
+              preFileName:'',
+              reportFileUrl:'',
+              reportFileName:'',
+              preScore:''
+            }
+            t[i] = team
           }
         }
         return t
@@ -104,12 +120,44 @@
     },
     methods:{
       //通过seminarId获得队伍数量限制
-      getTeamNumLimint:function (url,seminarId) {
-        axios.get(url,{seminarId})
+      getTeamNumLimit:function (url,params) {
+        axios.get(url,{params:{params}})
           .then((res)=>{
-            return res.data.teamNumLimit
+
+            let responseData = {
+              teamNumLimit:''
+            }
+
+            responseData = res.data
+
+            this.teamNumLimit = responseData.teamNumLimit
+
           })
           .catch((err)=>{
+            console.log(err)
+          })
+      },
+      getSignUpTeams:function (url,params) {
+        axios.get(url,params)
+          .then(res=>{
+
+            let responseData = {
+              teamName:'',
+              tamId:'',
+              preOrder:'',
+              preFileUrl:'',
+              preFileName:'',
+              reportFileUrl:'',
+              reportFileName:'',
+              preScore:''
+            }
+
+            responseData = res.data
+
+            this.presentationTeams = responseData
+
+          })
+          .catch(err=>{
             console.log(err)
           })
       }
@@ -118,12 +166,4 @@
 </script>
 
 <style scoped>
-  .header{
-    top: 0;
-    height: 10%;
-  }
-  .container{
-    margin-top: 10%;
-    height: 90%;
-  }
 </style>

@@ -19,12 +19,4 @@
 </script>
 
 <style scoped>
-  .header{
-    top: 0;
-    height: 10%;
-  }
-  .container{
-    margin-top: 10%;
-    height: 90%;
-  }
 </style>

@@ -4,8 +4,8 @@
       <mt-field placeholder="确认密码" v-model="user.rePassword"></mt-field>
       <mt-field placeholder="邮箱" v-model="user.email"></mt-field>
       <mt-field placeholder="验证码" v-model="user.captcha"></mt-field>
-      <mt-button size="small" @click="sendCaptcha">发送验证码</mt-button>
-      <mt-button type="primary" @click="activeAccount">激活账号</mt-button>
+      <mt-button size="small" @click="sendCaptcha(sendCaptchaUrl,{account: user.account})">发送验证码</mt-button>
+      <mt-button type="primary" @click="activeAccount(activeAccountUrl,user)">激活账号</mt-button>
     </div>
 </template>
 
@@ -22,7 +22,7 @@
               rePassword:'',
               email:'',
               captcha:'',
-              id:''
+              userId:''
             },
             //todo
             sendCaptchaUrl:'',
@@ -32,14 +32,14 @@
         //通过sessionStorage获得userId和account
         created(){
           this.user.account=sessionStorage.getItem('account')
-          this.user.id=sessionStorage.getItem('userId')
+          this.user.userId=sessionStorage.getItem('userId')
         },
         methods:{
           //向邮箱发送验证码
-          sendCaptcha:function(){
+          sendCaptcha:function(url,params){
             //通过account发送验证码
-            axios.post(this.sendCaptchaUrl,this.user.account)
-              .then((res)=>{
+            axios.post(url,params)
+              .then(res=>{
                 Toast({
                   message: '验证码已发送至邮箱',
                   iconClass: 'icon icon-success'
@@ -50,10 +50,9 @@
               })
           },
           //激活账号
-          activeAccount:function () {
-            //通过axios后端激活
-
-            axios.post(this.activeAccountUrl,this.user)
+          activeAccount:function (url,params) {
+            //发送user信息
+            axios.post(url,params)
               .then(res=>{
                 //动画
                 Toast({

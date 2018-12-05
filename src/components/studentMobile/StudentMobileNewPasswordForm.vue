@@ -1,12 +1,15 @@
 <template>
     <div>
-      <p v-if="account">发送验证码到邮箱{{email}}</p>
-      <mt-field :readonly="account" placeholder="学号" v-model="account"></mt-field>
+      <p v-if="email">发送验证码到邮箱{{email}}</p>
+      <mt-field :readonly="isLogin" placeholder="学号" v-model="account"></mt-field>
       <mt-field placeholder="新密码" v-model="password"></mt-field>
       <mt-field placeholder="确认密码" v-model="rePassword"></mt-field>
       <mt-field placeholder="验证码" v-model="captcha"></mt-field>
-      <mt-button @click="sendCaptcha">发送验证码</mt-button>
-      <mt-button type="primary" @click="updatePassword">修改密码</mt-button>
+      <mt-button @click="sendCaptcha(sendCaptchaUrl,{account:account})">发送验证码</mt-button>
+      <mt-button type="primary" @click="updatePassword(updatePasswordUrl,
+             {account: account,
+              password: password,
+              captcha:captcha})">修改密码</mt-button>
     </div>
 </template>
 
@@ -17,6 +20,7 @@
         name: "StudentMobileNewPasswordForm",
         data () {
           return {
+            isLogin:false,
             account:'',
             email:'',
             password:'',
@@ -29,9 +33,9 @@
         },
         methods: {
           //发送验证码
-          sendCaptcha: function () {
+          sendCaptcha: function (url,params) {
             //通过account发送验证码
-            axios.post(this.sendCaptchaUrl, this.user.account)
+            axios.post(url,params)
               .then((res) => {
                 Toast({
                   message: '验证码已发送至邮箱',
@@ -43,7 +47,8 @@
               })
           },
           //修改密码
-          updatePassword: function () {
+          updatePassword: function (url,params) {
+            //验证输入
             if (this.password != this.rePassword) {
               Toast({
                 message: '两次密码输入不一致'
@@ -55,7 +60,7 @@
               captcha:this.captcha
             }
 
-            axios.post(this.updatePasswordUrl,user)
+            axios.post(url,params)
               .then((res)=>{
                 Toast({
                   message: '密码修改成功',
@@ -76,6 +81,9 @@
         },
         created (){
           this.account= sessionStorage.getItem('account')
+          if (this.account){
+            this.isLogin = true;
+          }
           this.email = this.$route.query.email
         }
     }

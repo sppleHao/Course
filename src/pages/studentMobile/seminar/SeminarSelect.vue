@@ -37,6 +37,7 @@
 </template>
 
 <script>
+  import axios from 'axios'
 import StudentMobileHeader from "../../../components/studentMobile/StudentMobileHeader";
 import StudentMobileSeminarRoundList from "../../../components/studentMobile/StudentMobileSeminarRoundList";
 export default {
@@ -50,7 +51,9 @@ export default {
       seminars:'',
       //已报名讨论课
       signUpSeminars:'',
-      courseName: this.$route.query.courseName
+      courseName: this.$route.query.courseName,
+      getSeminarsUrl:'',
+      getSignUpSeminarsUrl:''
     }
   },
   computed: {
@@ -79,22 +82,69 @@ export default {
         }
       })
       return r
+    },
+    //获得所有讨论课
+    getSeminars: function (url,params) {
+      axios.get(url,{params:{params}})
+        .then(res=>{
+
+          let responseData = {
+            seminarId:'',
+            seminarTopic:'',
+            roundOrder:''
+          }
+
+          responseData = res.data
+
+          this.seminars = responseData
+        })
+        .catch(err=>{
+          console.log(err)
+        })
+    },
+    //获得所有已报名的讨论课
+    getSignUpSeminars:function (url,params) {
+      axios.get(url,{params:{params}})
+        .then(res=>{
+
+          let responseData = {
+            seminarId:'',
+            seminarTopic:'',
+            roundOrder:''
+          }
+
+          responseData = res.data
+
+          this.signUpSeminars = responseData
+        })
+        .catch(err=>{
+          console.log(err)
+        })
     }
   },
   created () {
+    //获得courseId
+    let courseId = sessionStorage.getItem('courseId')
+
     //通过courseId获得该课程所有讨论课
+    // this.getSeminars(this.getSeminarsUrl,{courseId:courseId})
 
     //test
-    this.seminars= [{id:'1', topic: '业务流程分析', roundOrder: 1},
-      {id:'2', topic: '领域模型设计', roundOrder: 1},
-      {id:'3', topic: '代码检查', roundOrder: 2},
-      {id:'4', topic: '对象模型设计', roundOrder: 2}]
+    this.seminars= [{seminarId:'1',seminarTopic: '业务流程分析', roundOrder: 1},
+      {seminarId:'2',seminarTopic: '领域模型设计', roundOrder: 1},
+      {seminarId:'3',seminarTopic: '代码检查', roundOrder: 2},
+      {seminarId:'4',seminarTopic: '对象模型设计', roundOrder: 2}]
+
+    //获得teamId
+
+    let teamId = sessionStorage.getItem('teamId')
 
     //通过courseId和teamId获得队伍已报名的所有讨论课
+    // this.getSignUpSeminars(this.getSignUpSeminarsUrl,{courseId:courseId,teamId:teamId})
 
     //test
-    this.signUpSeminars = [{id:'1', topic: '业务流程分析', roundOrder: 1},
-      {id:'3', topic: '代码检查', roundOrder: 2}]
+    this.signUpSeminars = [{seminarId:'1',seminarTopic: '业务流程分析', roundOrder: 1},
+      {seminarId:'3',seminarTopic: '代码检查', roundOrder: 2}]
 
   },
   props:['courseId','classId','teamId']
@@ -102,12 +152,4 @@ export default {
 </script>
 
 <style scoped>
-.header{
-  top: 0;
-  height: 10%;
-}
-.container{
-  margin-top: 10%;
-  height: 90%;
-}
 </style>

@@ -51,21 +51,22 @@
         this.selected = this.$route.query.selected
 
         //获得userId
-        // let userId = sessionStorage.getItem('userId')
+        let userId = sessionStorage.getItem('userId')
 
-        //查找用户拥有的所有课程
-        // this.getCourses(userId)
-
-        //查找用户的信息
-        // this.getAccountInformation(userId)
+        //通过userId查找用户拥有的所有课程
+        // this.getCourses(this.getCoursesUrl,{userId:userId})
 
         //test
         this.courses = [
-          {id: '1', name: 'OOAD'},
-          {id: '2', name: 'J2EE'}]
+          {courseId: '1', courseName: 'OOAD'},
+          {courseId: '2', courseName: 'J2EE'}]
 
+        //通过userId查找用户的信息
+        // this.getAccountInformation(this.getAccountInformationUrl,{userId:userId})
+
+        //test
         this.user = {
-          name:'王二',
+          userName:'王二',
           email:'wanger@qq.com',
           account:'24320162200000',
           msgInterval:'5'
@@ -73,20 +74,38 @@
       },
       methods:{
         //通过userId从后端查找所选择的课程
-        getCourses:function (userId) {
-          axios.post(this.getCoursesUrl,userId)
+        getCourses:function (url,params) {
+          axios.get(url,{params: {params}})
             .then((res)=>{
-              this.courses = res.data.courses
+
+              let responseData = {
+                courseId:'',
+                courseName:''
+              }
+
+              responseData = res.data
+
+              this.courses = responseData
             })
             .catch((err)=>{
               console.log(err)
             })
         },
         //通过userId从后端查找所选择的user信息
-        getAccountInformation:function () {
-          axios.post(this.getAccountInformationUrl,this,userId)
+        getAccountInformation:function (url,params) {
+          axios.get(url,{params: {params}})
             .then((res)=>{
-              this.user = res.data.user
+
+              let responseData = {
+                userName:'',
+                email:'',
+                account:'',
+                msgInterval:''
+              }
+
+              responseData = res.data
+
+              this.user = responseData
             })
             .catch((err)=>{
               console.log(err)
@@ -97,12 +116,4 @@
 </script>
 
 <style scoped>
-  .header{
-    top: 0;
-    height: 10%;
-  }
-  .container{
-    margin-top: 10%;
-    height: 90%;
-  }
 </style>

@@ -1,29 +1,29 @@
 <template>
   <div>
-    <div v-for="team in teams" :key="team.id">
+    <div v-for="team in teams" :key="team.teamId">
 
-      <!--本组-->
-      <mt-cell class="is-my-team" v-if="team.id==teamId" :title="`第${team.preOrder}组`" :label="`${team.name}(本组)`">
+      <!--如果是本组-->
+      <mt-cell class="is-my-team" v-if="team.teamId==teamId" :title="`第${team.preOrder}组`" :label="`${team.teamName}(本组)`">
         <span class="is-my-team" v-if="isScore">
           {{team.preScore}}
         </span>
         <mt-button v-else-if ="isReport" @click="fileDownload(url=`${team.reportFileUrl}`)">
           下载书面报告
         </mt-button>
-
-        <!--下载PPT-->
         <mt-button v-else  @click="fileDownload(url=`${team.preFileUrl}`)">
           下载ppt
         </mt-button>
       </mt-cell>
-      <!--队伍列表-->
 
-      <!--不为空-->
-      <mt-cell v-else-if="team.id" :title="`第${team.preOrder}组`" :label="team.name">
+
+      <!--非本组且不为空-->
+      <mt-cell v-else-if="team.teamId" :title="`第${team.preOrder}组`" :label="team.teamName">
+
         <!--显示成绩-->
         <span v-if="isScore">
           {{team.preScore}}
         </span>
+
         <!--显示书面报告-->
         <mt-button v-else-if ="isReport" @click="fileDownload(url=`${team.reportFileUrl}`)">
             下载书面报告
@@ -33,12 +33,14 @@
         <mt-button v-else  @click="fileDownload(url=`${team.preFileUrl}`)">
             下载ppt
         </mt-button>
+
       </mt-cell>
 
-      <!--为空报名-->
-      <mt-cell v-else-if="isSignUp" :title="`第${team.preOrder}组`" label="虚位以待">
-        <mt-button type="primary" @click="signUp">点击报名</mt-button>
+      <!--为空-->
+      <mt-cell v-else :title="`第${team.preOrder}组`" label="空缺">
+        <mt-button v-if="isSignUp" type="primary" @click="signUp">点击报名</mt-button>
       </mt-cell>
+
     </div>
 
     <div>

@@ -2,7 +2,7 @@
     <div>
       <mt-field label="学号" placeholder="请输入学号" v-model="user.account"></mt-field>
       <mt-field label="密码" placeholder="请输入密码" v-model="user.password"></mt-field>
-      <mt-button type="primary" @click="checkLogin">登陆</mt-button>
+      <mt-button type="primary" @click="checkLogin(checkLoginUrl,user)">登陆</mt-button>
       <mt-button type="default" @click="findBackPassword">忘记密码</mt-button>
     </div>
 </template>
@@ -24,18 +24,24 @@
           }
       },
       methods: {
-
         //登陆验证
-        checkLogin: function () {
+        checkLogin: function (url,params) {
             //加载图标
             //this.$indicator.open()
 
             //通过account和password登陆验证
-            axois.post(this.checkLoginUrl,this.user)
+            axois.post(url,params)
               .then((res)=>{
 
-                let userId = res.data.userId
-                this.isActive = res.data.isActive
+                let responseData = {
+                  userId:'',
+                  isActive:''
+                }
+
+                responseData = res.data;
+
+                let userId = responseData.userId
+                this.isActive = responseData.isActive
 
                 //通过sessionStorage存储userId作为token，account用来验证
                 sessionStorage.setItem('userId',userId)
