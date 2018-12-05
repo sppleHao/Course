@@ -52,20 +52,20 @@
           //激活账号
           activeAccount:function (url,params) {
             //发送user信息
-            axios.post(url,params)
-              .then(res=>{
-                //动画
-                Toast({
-                  message: '激活成功',
-                  iconClass: 'icon icon-success'
-                });
+            // axios.post(url,params)
+            //   .then(res=>{
+            //     //动画
+            //     Toast({
+            //       message: '激活成功',
+            //       iconClass: 'icon icon-success'
+            //     });
 
                 //跳转
                 this.$router.push({name:'StudentMobileAccountIndex',query:{selected:'我的'}})
-              })
-              .catch(err=>{
-                console.log(err)
-              })
+              // })
+              // .catch(err=>{
+              //   console.log(err)
+              // })
           }
         }
     }

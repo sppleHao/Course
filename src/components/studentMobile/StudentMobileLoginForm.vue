@@ -18,7 +18,7 @@
               account:'',
               password:'',
             },
-            isActive:'',
+            isActive:false,
             //todo
             checkLoginUrl:''
           }
@@ -30,31 +30,31 @@
             //this.$indicator.open()
 
             //通过account和password登陆验证
-            axois.post(url,params)
-              .then((res)=>{
-
-                let responseData = {
-                  userId:'',
-                  isActive:''
-                }
-
-                responseData = res.data;
-
-                let userId = responseData.userId
-                this.isActive = responseData.isActive
-
-                //通过sessionStorage存储userId作为token，account用来验证
-                sessionStorage.setItem('userId',userId)
-                sessionStorage.setItem('account',this.user.account);
-
-                //关闭加载图标
-                this.$indicator.close()
-
-                //弹出提示
-                Toast({
-                  message: '登陆成功',
-                  iconClass: 'icon icon-success'
-                })
+            // axois.post(url,params)
+            //   .then((res)=>{
+            //
+            //     let responseData = {
+            //       userId:'',
+            //       isActive:''
+            //     }
+            //
+            //     responseData = res.data;
+            //
+            //     let userId = responseData.userId
+            //     this.isActive = responseData.isActive
+            //
+            //     //通过sessionStorage存储userId作为token，account用来验证
+            //     sessionStorage.setItem('userId',userId)
+            //     sessionStorage.setItem('account',this.user.account);
+            //
+            //     //关闭加载图标
+            //     this.$indicator.close()
+            //
+            //     //弹出提示
+            //     Toast({
+            //       message: '登陆成功',
+            //       iconClass: 'icon icon-success'
+            //     })
 
                 if (this.isActive){
                   //如果账户是激活的，跳转到首页
@@ -65,15 +65,15 @@
                   this.$router.push({name:'StudentMobileActive'})
                 }
 
-              })
-              .catch((error)=>{
-                this.$indicator.close()
-                Toast({
-                  message: '错误',
-                  iconClass: 'icon icon-fail'
-                })
-                console.log(error)
-            })
+            //   })
+            //   .catch((error)=>{
+            //     this.$indicator.close()
+            //     Toast({
+            //       message: '错误',
+            //       iconClass: 'icon icon-fail'
+            //     })
+            //     console.log(error)
+            // })
           },
         //跳转到找回密码页
         findBackPassword: function () {

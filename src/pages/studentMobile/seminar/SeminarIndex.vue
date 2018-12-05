@@ -5,11 +5,7 @@
       </div>
       <div class="container">
         <!--test-->
-        <mt-radio
-          title="报名状态（测试)"
-          v-model="isTeamSignUp"
-          :options="[true,false]"
-        ></mt-radio>
+        <mt-switch v-model="isTeamSignUp">报名状态(测试)</mt-switch>
 
         <mt-radio
           title="讨论课状态（测试）"
@@ -72,7 +68,7 @@
               seminar:'',
               isTeamSignUp:'',
               presentation:'',
-              getSeminarUrl:'',//'http://119.29.24.35:8000/seminars/1'
+              getSeminarUrl:'http://119.29.24.35:8000/seminars/1',
               getTeamPresentationUrl:''
             }
         },
@@ -80,7 +76,7 @@
           let seminarId = this.seminarId
 
           //通过seminarId获得讨论课的信息
-          // this.getSeminar(this.getSeminarUrl,{seminarId:seminarId})
+          this.getSeminar(this.getSeminarUrl,{seminarId:seminarId})
 
           let teamId = sessionStorage.getItem('teamId')
 
@@ -117,7 +113,6 @@
                   seminarState:'',
                   signUpStartTime:'',
                   signUpEndTime:'',
-                  isTeamSignUp:'',
                   reportDDL:''
                 }
 

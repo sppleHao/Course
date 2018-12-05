@@ -1,10 +1,9 @@
 <template>
     <div>
-        <router-link :to="{name:'StudentMobileSeminarPresenting',
-          params:{seminarId:this.seminarId,courseId:this.courseId},
-          query:{seminarTopic:this.seminarTopic,isTeamSignUp}}">
-          <mt-button type="danger">进入讨论课</mt-button>
-        </router-link>
+
+      <mt-button type="danger" @click="seminarProcess">进入讨论课</mt-button>
+      <mt-button type="primary" @click="showPPT">下载ppt</mt-button>
+      <mt-button type="primary" @click="showReport">下载书面报告</mt-button>
 
       <div v-if="isTeamSignUp">
         <mt-button type="primary" @click="showModal">PPT提交</mt-button>
@@ -38,7 +37,23 @@
         showModal: function () {
           this.popupVisible = true
         },
-        //更新进度条
+        //进入下载ppt界面
+        showPPT:function () {
+          this.$router.push({name:'StudentMobileSeminarOperations',
+            params:{seminarId:this.seminarId,courseId:this.courseId,operation:'ppt'}})
+        },
+        //进入下载报告界面
+        showReport:function () {
+          this.$router.push({name:'StudentMobileSeminarOperations',
+            params:{seminarId:this.seminarId,courseId:this.courseId,operation:'report'}})
+        },
+        //进入正在进行的讨论课界面
+        seminarProcess:function(){
+          this.$router.push({name:'StudentMobileSeminarPresenting',
+            params:{seminarId:this.seminarId,courseId:this.courseId},
+            query:{seminarTopic:this.seminarTopic,isTeamSignUp:this.isTeamSignUp}})
+        },
+        //实时刷新进度条
         refreshProcess: function (progressEvent) {
           const _this = this
           let loaded = progressEvent.loaded

@@ -7,12 +7,26 @@
         <span class="is-my-team" v-if="isScore">
           {{team.preScore}}
         </span>
-        <mt-button v-else-if ="isReport" @click="fileDownload(url=`${team.reportFileUrl}`)">
-          下载书面报告
-        </mt-button>
-        <mt-button v-else  @click="fileDownload(url=`${team.preFileUrl}`)">
-          下载ppt
-        </mt-button>
+        <!--下载书面报告-->
+        <div v-else-if="isReport">
+          <mt-button v-if ="team.reportFileUrl" @click="fileDownload(url=`${team.reportFileUrl}`)">
+            下载"{{team.reportFileName}}"
+          </mt-button>
+          <mt-button v-else disabled>
+            未上传
+          </mt-button>
+        </div>
+
+        <!--下载PPT-->
+        <div v-else>
+          <mt-button v-if="team.preFileUrl" @click="fileDownload(url=`${team.preFileUrl}`)">
+            下载"{{team.preFileName}}"
+          </mt-button>
+          <mt-button v-else disabled size="large">
+            未上传
+          </mt-button>
+        </div>
+
       </mt-cell>
 
 
@@ -24,27 +38,41 @@
           {{team.preScore}}
         </span>
 
-        <!--显示书面报告-->
-        <mt-button v-else-if ="isReport" @click="fileDownload(url=`${team.reportFileUrl}`)">
-            下载书面报告
-        </mt-button>
+        <!--下载书面报告-->
+        <div v-else-if="isReport">
+          <mt-button v-if ="team.reportFileUrl" @click="fileDownload(url=`${team.reportFileUrl}`)">
+            下载"{{team.reportFileName}}"
+          </mt-button>
+          <mt-button v-else disabled>
+            未上传
+          </mt-button>
+        </div>
 
         <!--下载PPT-->
-        <mt-button v-else  @click="fileDownload(url=`${team.preFileUrl}`)">
-            下载ppt
-        </mt-button>
+        <div v-else>
+          <mt-button v-if="team.preFileUrl" @click="fileDownload(url=`${team.preFileUrl}`)">
+            下载"{{team.preFileName}}"
+          </mt-button>
+          <mt-button v-else disabled size="large">
+            未上传
+          </mt-button>
+        </div>
 
       </mt-cell>
 
       <!--为空-->
       <mt-cell v-else :title="`第${team.preOrder}组`" label="空缺">
-        <mt-button v-if="isSignUp" type="primary" @click="signUp">点击报名</mt-button>
+        <mt-button v-if="isSignUp" type="primary"
+                   @click="signUp(signUpUrl,{teamId:teamId,seminarId:seminarId})">
+          点击报名
+        </mt-button>
       </mt-cell>
 
     </div>
 
     <div>
-      <mt-button v-if="isCancelSignUp" type="danger" @click="cancekSignUp">
+      <mt-button v-if="isCancelSignUp" type="danger"
+                 @click="cancelSignUp(cancelSignUpUrl,{teamId:teamId,seminarId:seminarId})">
         取消报名
       </mt-button>
     </div>
@@ -60,27 +88,28 @@
         data(){
           return{
             teamId:'',
-            signUpSeminarUrl:'',
-            cancelSignUpSeminarUrl:''
+            signUpUrl:'',
+            cancelSignUpUrl:''
           }
         },
         methods:{
-          signUp:function (event) {
+          signUp:function (url,params) {
             MessageBox.confirm('确认报名？').then(action => {
-              let teamId = sessionStorage.getItem('teamId')
-              //todo 通过teamId和seminarId报名讨论课
-              // axios.post(this.signUpSeminarUrl,{teamId,seminarId:this.seminarId})
-              //   .then((res)=>{
-              //
-              //   })
-              //   .catch((err)=>{
-              //
-              //   })
-              Toast({
-                message: `报名成功`,
-                iconClass: 'icon icon-success'
-              });
-              this.$router.go(-1)
+              axios.post(url,params)
+                .then((res)=>{
+                  Toast({
+                    message: `报名成功`,
+                    iconClass: 'icon icon-success'
+                  });
+                  this.$router.go(-1)
+                })
+                .catch((err)=>{
+                  Toast({
+                    message: `报名失败`,
+                  });
+                  console.log(err)
+                })
+
             })
           },
           fileDownload:function(url){
@@ -99,21 +128,25 @@
               });
               })
           },
-          cancekSignUp:function () {
+          cancelSignUp:function (url,params) {
             MessageBox.confirm('确认取消报名？').then(action => {
               //todo 通过seminarId和teamId取消报名
-              // axios.post(this.cancelSignUpSeminarUrl,{teamId,seminarId:this.seminarId})
-              //   .then((res)=>{
-              //
-              //   })
-              //   .catch((err)=>{
-              //     console.log(err)
-              //   })
-              Toast({
-                message: `取消成功`,
-                iconClass: 'icon icon-success'
-              });
-              this.$router.go(-1)
+              axios.post(url,params)
+                .then((res)=>{
+                  Toast({
+                    message: `取消成功`,
+                    iconClass: 'icon icon-success'
+                  });
+                  this.$router.go(-1)
+                })
+                .catch((err)=>{
+                  Toast({
+                    message: `取消失败`,
+                    iconClass: 'icon icon-success'
+                  });
+                  console.log(err)
+                })
+
             })
           }
         },
