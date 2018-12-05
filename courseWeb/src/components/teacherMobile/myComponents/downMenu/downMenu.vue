@@ -3,17 +3,36 @@
     <em class="box2"></em>
     <em class="box3"></em>
     <div class="item1">
-      <img src="../../../../assets/news.png" class="img"/>待办</div>
+      <img src="../../../../assets/news.png" class="img" @click="enterUpcomings(id)"/>待办</div>
     <div class="item1">
-      <img src="../../../../assets/personal data.png" class="img"/>个人页</div>
-    <div class="item2">
+      <img src="../../../../assets/personal data.png" class="img" @click="enterPersonal(id)"/>个人页</div>
+    <div class="item2" @click="enterSeminar(id)">
       <img src="../../../../assets/Trophy.png" class="img"/>讨论课</div>
   </div>
 </template>
 
 <script>
     export default {
-        name: "downMenu"
+      name: "downMenu",
+      data() {
+        return {
+          id: '24320162202918'
+        }
+      },
+      methods: {
+        enterUpcomings: function (id) {
+
+        },
+        enterPersonal: function (id) {
+
+        },
+        enterSeminar: function (id) {
+          this.$router.push({
+            name: 'teacherMobileSeminar',
+            params: {id}
+          })
+        },
+      }
     }
 </script>
 

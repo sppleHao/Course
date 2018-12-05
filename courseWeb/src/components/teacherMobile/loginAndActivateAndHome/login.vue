@@ -78,7 +78,7 @@
 <style scoped>
   .head{
     text-align: center;
-    background: #f2f2f2;
+    background: #96c864;
     width:100%;
     height: 10%;
     border:1px solid transparent;
@@ -120,11 +120,6 @@
   .input::-webkit-input-placeholder, textarea::-webkit-input-placeholder { /* WebKit*/
     color:#CCCCCC;
     font-size:2vmax;
-
-
-
-
-
   }
   .button {
     display: inline-block;

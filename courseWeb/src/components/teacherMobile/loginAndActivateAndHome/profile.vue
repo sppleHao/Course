@@ -11,7 +11,21 @@
     </div>
     <div class="main">
       <down-menu></down-menu>
-      
+      <div class="man"><img style="width:80%" src="../../../assets/man.png"></div>
+      <div class="entry">
+        <div class="entry-div" @click="enterSetting(this.$data.id)">
+          <div>
+            <img style="width:50%" src="../../../assets/personal.png"/>
+          </div>
+          <div class="entry-font-div">账户与设置</div>
+        </div>
+        <div class="entry-div" @click="enterCourse(this.$data.id)">
+          <div>
+            <img style="width:50%" src="../../../assets/seminar.png"/>
+          </div>
+          <div class="entry-font-div">我的课程</div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -20,7 +34,9 @@
     export default {
         name: "profile",
       data() {
-        return {}
+        return {
+          id:'1',
+        }
       },
       methods:{
         closeMenu:function(){
@@ -28,6 +44,18 @@
           if(document.getElementById("show").style.display==="block"){
             if(!menu.contains(event.target)) document.getElementById("show").style.display="none";
           }
+        },
+        enterCourse:function(id){
+          this.$router.push({
+            name:'',
+            params:{id}
+          })
+        },
+        enterSetting:function(id){
+          this.$router.push({
+            name:'',
+            params:{id}
+          })
         }
       }
     }
@@ -57,7 +85,28 @@
   }
   .main{
     /*margin-top: 8%;*/
-    height: 85%;
+    height: 92%;
     width: 100%;
+    background: #fff;
+    text-align:center;
+  }
+  .man{
+    height:30%;
+    width:80%;
+    margin:0 auto;
+  }
+  .entry{
+    margin-top:30%;
+    height: 50%;
+    width:100%;
+    text-align:center;
+  }
+  .entry-font-div{
+    font-size:2vmax;
+    margin-top: 5%;
+  }
+  .entry-div{
+    width:50%;
+    float:left;
   }
 </style>

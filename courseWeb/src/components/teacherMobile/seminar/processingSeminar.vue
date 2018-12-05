@@ -44,7 +44,7 @@
       </div>
       <div class="main3">
         <button class="button1"><span>{{currentType==1?"抽取提问":"下个提问"}}</span></button>
-        <button class="button2"><span>下组展示</span></button>
+        <button class="button2" @click="nextShow"><span>下组展示</span></button>
       </div>
     </div>
     <el-dialog :visible.sync="pauseDialogVisible" :show-close="false" top="40%" width="60%" center>
@@ -207,7 +207,15 @@
         document.getElementById("ask"+_this.$data.chooseAsking).style.color = "black";
         _this.$data.chooseAsking=id-1;
         document.getElementById("ask"+_this.$data.chooseAsking).style.color = "red"
-      }
+      },
+      // nextShow:function(){
+      //   let _this=this;
+      //   _this.$data.currentType=1;
+      //   _this.$data.showGroup[_this.$data.chooseShowing].num=_this.$data.showGroup[_this.$data.chooseShowing].num.substring(0,3);
+      //   _this.$data.chooseShowing=_this.$data.chooseShowing-1;
+      //   _this.$data.showGroup[_this.$data.chooseShowing].num+=" ▶";
+      //   document.getElementById("ask"+_this.$data.chooseAsking).style.color = "black";
+      // }
     },
     created(){
       let _this=this;
