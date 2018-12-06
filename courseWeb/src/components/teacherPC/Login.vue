@@ -5,12 +5,12 @@
     </div>
     <div class="main">
       <div>翻转课堂教师登录</div>
-      <i-input class="input" v-model="name" placeholder="账户名" size="large" clearable >
+      <Input class="input" v-model="name" placeholder="账户名" size="large" clearable >
         <Icon type="ios-contact" slot="prefix" />
-      </i-input>
-      <i-input class="input" v-model="password" placeholder="账户密码" size="large" clearable >
+      </Input>
+      <Input class="input" v-model="password" placeholder="账户密码" size="large" clearable >
         <Icon type="md-lock" slot="prefix" />
-      </i-input>
+      </Input>
       <button class="button"><span>登录</span></button>
     </div>
 
@@ -20,7 +20,7 @@
 
 <script>
   export default {
-    name: "Login",
+    name: "login",
     data(){
       return{
         name:'',
@@ -71,7 +71,7 @@
 
   .root{
     height: 100%;
-    width:100%;
+    width:102%;
     background: #eee;
     border-right:2px solid transparent;
   }
@@ -109,5 +109,4 @@
     margin-bottom:10px;
     width: 100%;
   }
-
 </style>
